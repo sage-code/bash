@@ -48,9 +48,17 @@ Bash is a domain specific programming language. It is the default scripting lang
 
 <p>Bash has a weird syntax that may be difficult to master. Bash is interpreted not compiled and has dynamic types. Bash is not a free form language. Using spaces or not using spaces is important in Bash. Many times you get error messages that are not telling you what the problem is so you have to guess. The reference doc lack examples and is poorly explained. The tutorials you can find on the internet are full juicy adds and click baits. We will try to make all this pain go away by making a good add free tutorial but we can't improve the language. It is too late and it's going to be so for eternity. Nobody will touch it. So we learn it as it is, and use it only for what is good at: small system scripts!</p>
 
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=hwrnmQumtPw" target="_blank" rel="nofollow noopener noreferrer">
+  <img src="../images/youtube.svg" width="200" alt="HTML Tutorial"/>
+  </a>
+  <p>Darek Banas: YouTube</p>
+</div>
+
+
 <h2>Learn Bash</h2>
 
-<p>You can learn Bash from this tutorial. We have created many examples that you can download and execute on your own machine. If you are first time here, skip the index and read this page to the end. We will help you navigate to next page and read all tutorial like a book. Do not skip pages and read all the articles thorough to learn all the concepts in logic order. Read one page every day. When you finis, take the quiz. This is a touch language so let's get started.</p>
+<p>You can learn Bash from this tutorial. We have created many examples that you can download and execute on your own machine. If you are first time here, skip the index and read this page to the end. We will help you navigate to next page and read all tutorial like a book. Do not skip pages and read all the articles thorough to learn all the concepts in logic order. Read one page every day. When you finis, take the quiz. This is a tough language so let's get started.</p>
 
 <h3><a id="lang-index" href="#lang-index"></a>Bash Topics</h3>
 
@@ -71,59 +79,6 @@ Bash is a domain specific programming language. It is the default scripting lang
   <li><a href="regex.html">Regular Expressions</a></li>
 </ol>
 
-<pre><code class="language-php line-numbers">#!/bin/bash
-echo "Hello World"
-</code></pre>
-
-<p>I have done this demo on repl.it website. You can investigate.</p>
-
-<pre><code class="language-php line-numbers">#bash-repl app
-# demo for Bash
-echo Bash Demo
-echo "-------------------"
-echo "0 - exit"
-echo "1 - hello"
-echo "2 - selection"
-echo "3 - for loop"
-echo "-------------------"
-
-option=9
-
-function hello()
-{
-  echo Hello World
-}
-
-function selection()
-{
-   echo "select:"
-   local op="one two three break"
-   # demonstrate selection
-   select x in $op;
-   do
-      # demonstrate conditional;
-      case $x in
-        (break) echo "done"; break;;
-        (one)   echo "one";;
-        (two|three)  echo "other";;
-      esac
-   done #select
-}
-
-# start menu
-while (($option))
-do
-  read -p ":>" option
-  case $option in
-    (0) echo "goodby";;
-    (1) hello;;
-    (2) selection;;
-  esac
-done
-
-</code></pre>
-
-
 <h2>References</h2>
 <p>We do not yet have a Bash tutorial. Until we do you can learn Bash from external references. These are the best we can find. No ads!</p>
 
@@ -132,6 +87,23 @@ done
 <li><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html">Bash Manual</a></li>
 <li><a href="https://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html">Bash Tutorial</a></li>
 </ul>
+
+<h2><a id="quiz">Bash Quiz</a></h2>
+
+<div class="alert alert-secondary shadow-sm">
+Next quiz does not have a time limit, but you should finish in less than 30 minutes. You can scan the code using a mobile or tablet. If you are already on mobile device, tap the code below to start the quiz. It requires you to sign-in using your Google account.
+</div>
+
+<div class="text-center">
+<a href="https://forms.gle/jqEiMM2gXxBBtAB7A" target="_blank" rel="noopener noreferrer">
+<img src="img/bash-quiz.png" width="200" alt="Bash Quiz" class="border shadow"/></a>
+<p>Bash - Quiz</p>
+</div>
+
+<hr>
+
+<div class="alert alert-warning"><b>Privacy Terms:&nbsp;</b>We do not collect your e-mail address but we record your name with the test results on Google drive. If you take more than 80% we will recognize your skill and will endorse you on Linked-in. If you don't agree, you can use name: <em>Anonymous</em> or a fake name but then we can't endorse your new skills.</div>
+
 
 <!-- work in progress-->
 

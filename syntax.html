@@ -39,13 +39,61 @@
 
 
 <div class="alert alert-secondary shadow-sm">
-Work in progress.
+Bash is a curly bracket language with original syntax. PHP language was inspired from Bash so they are similar.
 </div>
 
+<pre><code class="language-php line-numbers">#!/bin/bash
+  echo "Hello World"
+  </code></pre>
 
-<pre><code class="language-bash line-numbers"># demo script
-echo "hello world"
-</code></code></code></pre>
+  <p>I have done this demo on repl.it website. You can investigate.</p>
+
+  <pre><code class="language-php line-numbers">#bash-repl app
+  # demo for Bash
+  echo Bash Demo
+  echo "-------------------"
+  echo "0 - exit"
+  echo "1 - hello"
+  echo "2 - selection"
+  echo "3 - for loop"
+  echo "-------------------"
+
+  option=9
+
+  function hello()
+  {
+    echo Hello World
+  }
+
+  function selection()
+  {
+     echo "select:"
+     local op="one two three break"
+     # demonstrate selection
+     select x in $op;
+     do
+        # demonstrate conditional;
+        case $x in
+          (break) echo "done"; break;;
+          (one)   echo "one";;
+          (two|three)  echo "other";;
+        esac
+     done #select
+  }
+
+  # start menu
+  while (($option))
+  do
+    read -p ":>" option
+    case $option in
+      (0) echo "goodby";;
+      (1) hello;;
+      (2) selection;;
+    esac
+  done
+
+</code></pre>
+
 
 <!-- work in progress-->
 
