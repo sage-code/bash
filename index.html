@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Learn your first programming language.">
+  <meta name="author" content="Elucian Moise">
+  <meta name="keywords" content="system, programming, bash">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Website title -->
+  <title>Learn Bash</title>  
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <!-- Icon -->
+  <link rel="icon" type="image/png"  href="../images/favicon.ico">  
+  <!-- Prism Highlighter -->
+  <link rel="stylesheet" href="../prism.css">
+  <script src="../prism.js"></script>
+  <!-- custom css -->
+  <link rel="stylesheet" href="../sage.css">
+  </head>
+<body>
+
+<div class="container">
+        
+<!-- header -->
+<div class="row">
+    <div class="col">
+        <a href="https://sagecode.net"><img src="../images/sage-logo.svg" alt="Sage-Code Laboratory" height="80"/></a>
+    </div>  
+    <div class="col  bottom-right">
+        <a href="../engineering.html">index</a>&lt;--
+    </div>
+</div><hr>
+
+<h2>Learn Bash</h2>
+
+<div class="alert alert-secondary shadow-sm">
+Bash is a scripting language for Linux. It is simple and easy to learn. It is open source and available on FreeBSD, Mac OS, Linux. This should be your first programming language to master as Software Engineer.
+</div>
+
+<pre><code class="language-php line-numbers">#!/bin/bash
+echo "Hello World"
+</code></pre>
+
+<p>I have done this demo on repl.it website. You can investigate.</p>
+
+<pre><code class="language-php line-numbers">#bash-repl app
+# demo for Bash
+echo Bash Demo
+echo "-------------------"
+echo "0 - exit"
+echo "1 - hello"
+echo "2 - selection"
+echo "3 - for loop"
+echo "-------------------"
+
+option=9
+
+function hello() 
+{
+  echo Hello World
+}
+
+function selection()
+{  
+   echo "select:"
+   local op="one two three break"
+   # demonstrate selection
+   select x in $op;
+   do
+      # demonstrate conditional;
+      case $x in
+        (break) echo "done"; break;;
+        (one)   echo "one";;
+        (two|three)  echo "other";;     
+      esac
+   done #select
+}
+
+# start menu
+while (($option)) 
+do
+  read -p ":>" option
+  case $option in
+    (0) echo "goodby";;
+    (1) hello;;
+    (2) selection;;
+  esac
+done
+
+</code></pre>
+
+
+<h2>References</h2>
+<p>We do not yet have a Bash tutorial. Until we do you can learn Bash from external references. These are the best we can find. No ads!</p>
+
+<ul>
+<li><a href = "https://en.wikipedia.org/wiki/Bash_(Unix_shell)">About Bash</a>
+<li><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html">Bash Manual</a></li>
+<li><a href="https://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html">Bash Turorial</a></li>
+</ul>
+
+<!-- work in progress-->
+
+<hr>
+<p><b>Go back:</b>
+<a href="../engineering.html">Tutorial Index</a></p>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-copyright text-center"></div>
+</footer>
+</div>
+</body>
+</html>
