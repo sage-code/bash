@@ -8,12 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Website title -->
-  <title>Learn Bash</title>  
+  <title>Shell Scripting</title>
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
   <!-- Icon -->
-  <link rel="icon" type="image/png"  href="../images/favicon.ico">  
+  <link rel="icon" type="image/png"  href="../images/favicon.ico">
   <!-- Prism Highlighter -->
   <link rel="stylesheet" href="../prism.css">
   <script src="../prism.js"></script>
@@ -23,22 +23,53 @@
 <body>
 
 <div class="container">
-        
+
 <!-- header -->
 <div class="row">
     <div class="col">
         <a href="https://sagecode.net"><img src="../images/sage-logo.svg" alt="Sage-Code Laboratory" height="80"/></a>
-    </div>  
+    </div>
     <div class="col  bottom-right">
         <a href="../engineering.html">index</a>&lt;--
     </div>
 </div><hr>
 
-<h2>Learn Bash</h2>
+<h1>Shell Scripting</h1>
 
 <div class="alert alert-secondary shadow-sm">
-Bash is a scripting language for Linux. It is simple and easy to learn. It is open source and available on FreeBSD, Mac OS, Linux. This should be your first programming language to master as Software Engineer.
+Bash is a domain specific programming language. It is the default scripting language UNIX systems. It is open source and available on FreeBSD, Mac OS and Linux. This should be your first programming language to master system programming and Linux command line. Bash is the successor of Shell script, therefore is also called Shell scripting language.
 </div>
+
+<h2>Audience</h2>
+
+<p>This course is for passionate developers that work with the Linux operating system or Mac owners. Usually a Software Engineer that know Bash work as TechOps Software Engineer and have a highly payed job. Bash language is not recommended for enterprise developers. If you want to become a regular application developer and not a system developer, we advice you to learn other language and let Bash for later. </p>
+
+<h2>What is wrong?</h2>
+
+<p>Bash has a weird syntax that may be difficult to master. Bash is interpreted not compiled and has dynamic types. Bash is not a free form language. Using spaces or not using spaces is important in Bash. Many times you get error messages that are not telling you what the problem is so you have to guess. The reference doc lack examples and is poorly explained. The tutorials you can find on the internet are full juicy adds and click baits. We will try to make all this pain go away by making a good add free tutorial but we can't improve the language. It is too late and it's going to be so for eternity. Nobody will touch it. So we learn it as it is, and use it only for what is good at: small system scripts!</p>
+
+<h2>Learn Bash</h2>
+
+<p>You can learn Bash from this tutorial. We have created many examples that you can download and execute on your own machine. If you are first time here, skip the index and read this page to the end. We will help you navigate to next page and read all tutorial like a book. Do not skip pages and read all the articles thorough to learn all the concepts in logic order. Read one page every day. When you finis, take the quiz. This is a touch language so let's get started.</p>
+
+<h3><a id="lang-index" href="#lang-index"></a>Bash Topics</h3>
+
+<ol>
+  <li><a href="syntax.html">Syntax Overview</a></li>
+  <li><a href="types.html">Data types</a></li>
+  <li><a href="math.html">Shell Arithmetic</a></li>
+  <li><a href="conditionals.html">Conditional Expressions</a></li>
+  <li><a href="arrays.html">Bash Arrays</a></li>
+  <li><a href="control.html">Control Flow</a></li>
+  <li><a href="functions.html">Functions</a></li>
+  <li><a href="expansion.html">Command Expansion</a></li>
+  <li><a href="shell.html">Shell Command Line</a></li>
+  <li><a href="commands.html">Builtin Commands</a></li>
+  <li><a href="files.html">File Handling</a></li>
+  <li><a href="directory.html">Directory Stack</a></li>
+  <li><a href="braces.html">Brace Expansion</a></li>
+  <li><a href="regex.html">Regular Expressions</a></li>
+</ol>
 
 <pre><code class="language-php line-numbers">#!/bin/bash
 echo "Hello World"
@@ -58,13 +89,13 @@ echo "-------------------"
 
 option=9
 
-function hello() 
+function hello()
 {
   echo Hello World
 }
 
 function selection()
-{  
+{
    echo "select:"
    local op="one two three break"
    # demonstrate selection
@@ -74,13 +105,13 @@ function selection()
       case $x in
         (break) echo "done"; break;;
         (one)   echo "one";;
-        (two|three)  echo "other";;     
+        (two|three)  echo "other";;
       esac
    done #select
 }
 
 # start menu
-while (($option)) 
+while (($option))
 do
   read -p ":>" option
   case $option in
@@ -99,7 +130,7 @@ done
 <ul>
 <li><a href = "https://en.wikipedia.org/wiki/Bash_(Unix_shell)">About Bash</a>
 <li><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html">Bash Manual</a></li>
-<li><a href="https://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html">Bash Turorial</a></li>
+<li><a href="https://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html">Bash Tutorial</a></li>
 </ul>
 
 <!-- work in progress-->
