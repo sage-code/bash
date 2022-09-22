@@ -3,7 +3,7 @@
 Introduction to bash scripting.
 This is a tutorial for Sage-Code members.
 
-Visit: [sagecode/bash](https://sagcode.net/bash/index.html)
+Visit: [sagecode/bash](https://sagecode.net/bash/index.html)
 
 ---
 
