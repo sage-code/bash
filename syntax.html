@@ -39,62 +39,97 @@
 
 
 <div class="alert alert-secondary shadow-sm">
-Bash is a curly bracket language with original syntax. PHP language was inspired from Bash so they are similar.
+Bash is a curly bracket language. Unlike all other curly bracket languages are used only for functions. The curly brackets have a secondary meaning. Other blocks have an original design, similar to Ada and Pascal, except blocks are starting and ending with different keywords.
 </div>
 
 <pre><code class="language-php line-numbers">#!/bin/bash
-  echo "Hello World"
-  </code></pre>
-
-  <p>I have done this demo on repl.it website. You can investigate.</p>
-
-  <pre><code class="language-php line-numbers">#bash-repl app
-  # demo for Bash
-  echo Bash Demo
-  echo "-------------------"
-  echo "0 - exit"
-  echo "1 - hello"
-  echo "2 - selection"
-  echo "3 - for loop"
-  echo "-------------------"
-
-  option=9
-
-  function hello()
-  {
-    echo Hello World
-  }
-
-  function selection()
-  {
-     echo "select:"
-     local op="one two three break"
-     # demonstrate selection
-     select x in $op;
-     do
-        # demonstrate conditional;
-        case $x in
-          (break) echo "done"; break;;
-          (one)   echo "one";;
-          (two|three)  echo "other";;
-        esac
-     done #select
-  }
-
-  # start menu
-  while (($option))
-  do
-    read -p ":>" option
-    case $option in
-      (0) echo "goodby";;
-      (1) hello;;
-      (2) selection;;
-    esac
-  done
-
+echo "Hello World"
 </code></pre>
 
+<h4>Notes:</h4>
 
+<p>First program in any language is just printing to console the message "Hello World". This is not much but we can see several important syntax choices:</p>
+
+<ul>
+  <li>First line is called "chee bang" and is a special comment;</li>
+  <li>A string is enclosed in double quotes;</li>
+  <li>Second line "echo" is a function call with a parameter;</li>
+  <li>In Bash, we do not enclose arguments in paranthesis;</li>
+  <li>In Bash, end of line optional end with semicolon;</li>
+</ul>
+
+<h4>Your homework</h4>
+
+<p>Visit repl.it website and run the following example. You can enter an option and see it running. Press second option (2) then (1) to exit. Inspect the example. This is what we use to explain things in our next articles.</p>
+
+<a href="https://github.com/elucian/bash-repl" target="_blank" rel="nofollow">bash-repl or repl.it</a>
+
+<p>A REPL application is a classic. You display a menu and then you read the input. Depending on the option, you enter a number. Then you create a jump table or a selection statement to execute one or other feature of the APP.</p>
+
+<div align="center">
+  <img src="../images/repl-app.svg" alt="repl" srcset="../images/repl-app.png" width="520" class="img-fluid protect rounded shadow border" >
+  <p>REPL Application</p>
+</div>
+
+<h2>Example</h2>
+
+<p>Next example is a demo I have initially created to demonstrate how to make a REPL application in Bash. Read the comments to understand better how the application work. You do not have to understand this script, just browse the syntax. Read the notes afterwards.</p>
+
+<pre><code class="language-php line-numbers">#bash-repl app
+# demo for Bash
+echo Bash Demo
+echo "-------------------"
+echo "0 - exit"
+echo "1 - hello"
+echo "2 - selection"
+echo "3 - for loop"
+echo "-------------------"
+
+option=9
+
+function hello()
+{
+  echo Hello World
+}
+
+# submenu demo
+function selection()
+{
+    echo "select:"
+    local op="one two three break"
+    # demonstrate selection
+    select x in $op;
+    do
+      # demonstrate conditional;
+      case $x in
+        (break) echo "done"; break;;
+        (one)   echo "one";;
+        (two|three)  echo "other";;
+      esac
+    done #select
+}
+
+# selection loop
+while (($option))
+do
+  read -p ":>" option
+  case $option in
+    (0) echo "goodby";;
+    (1) hello;;
+    (2) selection;;
+  esac
+done
+</code></pre>
+
+<h4>Notes:</h4>
+
+<ol>
+  <li>In Bash we can have global scope;</li>
+  <li>In global scope we can have statements;</li>
+  <li>The statements can be intrerupted by functions;</li>
+  <li>After one function is declared, it can be called;</li>
+  <li>Functions can be called from inside other statements;</li>  
+</ol>
 <!-- work in progress-->
 
 <hr>
