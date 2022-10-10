@@ -43,12 +43,11 @@ Bash is a dynamic language that do not use data types to diferentiate variables.
 
 <h2>Declare variables</h2>
 
-<p>Bash enable you to create variables and set initial values. Later you can extract or modify the value of a variable using specific operators and expressions or commands.</p>
+<p>Bash enable you to create variables and set initial values. Later you can extract or modify the value of a variable using specific operators and expressions or commands. The most simple way to define a variable is to assign initial value to an identifier that becomes the variable name.</p>
 
-<p>The most simple way to define a variable is to assign initial value to an identifier that becomes the variable name. This identifier is case sensitive.</p>
+<h3>Identifier Name</h3>
 
-<h3>Identifier Name<h3>
-<p>Identifier name can't start with a number or special character. It usually start with a letter and can be followed by more letters, digits or underscore. You can't use a dash or a space for identifiers.</p>
+<p>Identifier name can't start with a number or special character. It usually start with a letter and can be followed by more letters, digits or underscore. You can't use a dash or a space for identifiers. Identifiers are case sensitive.</p>
 
 <h3>Initial Value</h3>
 
@@ -162,6 +161,34 @@ $
   $ echo "x = $x"
   x = 10
   $ 
+</code></pre>
+
+<h3>Longer strings</h3>
+
+<p>Long strings are possible on multiple lines. The spaces in long strings are preserved as is. So you can write a sequence of code and the indentation is preserved. You can also use the end of line continuation inside a string but is not necesary. The continuation symbol is backslash. "\"</p>
+
+<h4>Example</h4>
+
+<p>I have create this example named "longstr.sh" on replit.com website.</p>
+
+<pre><code class="language-bash line-numbers">&gt;>#!/bin/bash
+echo \
+"this
+   is
+   a
+   long
+   string"
+</code></pre>
+
+<h4>Console</h4>
+
+<pre><code class="language-output">&gt;bash longstr.sh
+this
+  is
+  a
+  long
+  string
+$
 </code></pre>
 
 <hr>
