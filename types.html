@@ -85,7 +85,7 @@ bash-3.2$
 
 <p><b>Note:</b> In previous example we may expect for the expresion to be evaluated and the result to be numeric but Bash has other ideas. It will create a string that is containing the expression as given.</p>
 
-<h2>Quoted Strings<h2>
+<h2>Quoted Strings</h3>
 
 <p>Quoted strings can support spaces and paranthesis. Also, there is an escape convention. A string can contain special characters escaped like in C using backslash symbol: "\"</p>
 
@@ -112,8 +112,11 @@ $exit
 
 <pre><code class="language-output">#!/bin/bash
 $ [ -z "$var" ] && echo "var is undefined"
+$ var is undefined
 $ var=0
 $ [[! -z "$var" ]] && echo "var is defined"
+var is defined
+$
 </code></pre>
 
 <h2>Environment Variables</h2>
@@ -131,7 +134,7 @@ $ bash is cool
 $ 
 </code></pre>
 
-## String manipulation
+<h2>String manipulation</h2>
 
 <p>Strings can be concatenated in Bash if they are side by side with other strings but not separated by a space. Any adiacent symbol except parathesis and spaces will be concatenated to the string. Strings can be modified using "+=" operator.</p>
 
@@ -145,9 +148,9 @@ $
   $ 
 </code></pre>
 
-## Formatinc strings
+<h2>String interpolation</h2>
 
-<p>Strings can be interpolated with variables. For this we use symbol "$" in front of variable, to access its value. The value is inserted in the string, replacing the variable placeholder. The string formating works with command "echo" and "printf" but also in expressions.</p>
+<p>Strings can be combined with variables. For this we use symbol "$" in front of variable, to access its value. The value is inserted in the string, replacing the variable placeholder. The string formating works with command "echo" and "printf" but also in expressions.</p>
 
 <h4>For instance:</h4>
 
