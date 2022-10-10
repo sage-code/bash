@@ -51,7 +51,7 @@ Bash is a dynamic language that do not use data types to diferentiate variables.
 
 <h3>Initial Value</h3>
 
-<p>Initial value is usually given by using "=" sign. Some other operators will cause a new variable to be created and assigned the z value. This can be an empty string or 0 depending on the context.</p>
+<p>Initial value is given by using assign sign "=". Some other operators like "+=" for examples will cause a new variable to be created and assigned the default zero value. This can be an empty string or 0 depending on the context.</p>
 
 <pre><code class="language-bash line-numbers">#!/bin/bash
 var=1
@@ -64,7 +64,7 @@ new+=1
 echo $new
 </code></pre>
 
-<h2>Constant Literals</h2>
+<h3>Constant Literals</h3>
 
 <p>Bash has support for data literals. Numeric data literals are by defaul parsed as decimal integers. If a literal look like a number it can be parsed and interpreted as a number depending on the context.</p>
 
@@ -84,7 +84,7 @@ bash-3.2$
 
 <p><b>Note:</b> In previous example we may expect for the expresion to be evaluated and the result to be numeric but Bash has other ideas. It will create a string that is containing the expression as given.</p>
 
-<h2>Quoted Strings</h3>
+<h3>Quoted Strings</h3>
 
 <p>Quoted strings can support spaces and paranthesis. Also, there is an escape convention. A string can contain special characters escaped like in C using backslash symbol: "\"</p>
 
@@ -147,7 +147,7 @@ $
   $ 
 </code></pre>
 
-<h2>String interpolation</h2>
+<h3>String interpolation</h3>
 
 <p>Strings can be combined with variables. For this we use symbol "$" in front of variable, to access its value. The value is inserted in the string, replacing the variable placeholder. The string formating works with command "echo" and "printf" but also in expressions.</p>
 
