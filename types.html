@@ -37,21 +37,133 @@
 
 <h1>Bash Data Types</h1>
 
-
 <div class="alert alert-secondary shadow-sm">
-Work in progress.
+Bash is a dynamic language that do not use data types to diferentiate variables. Basicly all variables are strings but depending on the context, Bash permits arithmetic operations and comparisons on variables. 
 </div>
 
+<h2>Declare variables</h2>
 
-<pre><code class="language-bash line-numbers"># demo script
-echo "hello world"
-</code></code></code></pre>
+<p>Bash enable you to create variables and set initial values. Later you can extract or modify the value of a variable using specific operators and expressions or commands.</p>
 
-<!-- work in progress-->
+<p>The most simple way to define a variable is to assign initial value to an identifier that becomes the variable name. This identifier is case sensitive.</p>
+
+<h3>Identifier Name<h3>
+<p>Identifier name can't start with a number or special character. It usually start with a letter and can be followed by more letters, digits or underscore. You can't use a dash or a space for identifiers.</p>
+
+<h3>Initial Value</h3>
+
+<p>Initial value is usually given by using "=" sign. Some other operators will cause a new variable to be created and assigned the z value. This can be an empty string or 0 depending on the context.</p>
+
+<pre><code class="language-bash line-numbers">#!/bin/bash
+var=1
+echo $var
+
+str="hello world"
+echo $str 
+
+new+=1
+echo $new
+</code></pre>
+
+<h2>Constant Literals</h2>
+
+<p>Bash has support for data literals. Numeric data literals are by defaul parsed as decimal integers. If a literal look like a number it can be parsed and interpreted as a number depending on the context.</p>
+
+<p>A sequence of symbols that are not separated by paranthesis or spaces can be considered string even if is not enclosed in double quotes. That may be confusing, therefore is a good practice in Bash to use double quotes to contain a string.</p>
+
+<h4>Example</h4>
+
+<p>In next example we display a sequence of commands given to the Bash interpreter in CLI (Command Line Interface). You can do this for quick testing or issuing commands.</p>
+
+<pre><code class="language-output">&gt;bash
+bash-3.2$
+bash-3.2$ xp=1+2+3
+bash-3.2$ echo $xp 
+1+2+3
+bash-3.2$
+</code></pre>
+
+<p><b>Note:</b> In previous example we may expect for the expresion to be evaluated and the result to be numeric but Bash has other ideas. It will create a string that is containing the expression as given.</p>
+
+<h2>Quoted Strings<h2>
+
+<p>Quoted strings can support spaces and paranthesis. Also, there is an escape convention. A string can contain special characters escaped like in C using backslash symbol: "\"</p>
+
+<h4>Examples</h4>
+
+<pre><code class="language-output">~&gt;bash
+$ echo "This is \n a long string \n with new lines"
+This is
+a long string
+with new lines
+$exit
+~&gt;
+</code></pre>
+
+<p><b>Note:</b> In this example, $ is the Bash prompt. Bash is waiting for a new command. You can stop CLI by typing command: exit. Symbol ~ represent home folder and is sometimes present in the command line prompt.</p>
+
+<h2>Empty variables</h2>
+
+<p>You can't test directly for type of a variable but you can test if a variable is empty using a conditional expression. We have not yet learn how to make conditionals.</p>
+
+<h4>Examples</h4>
+
+<p>Expression [ -z "$var" ] represents a conditional expression that is evaluated to true if variable var is empty or unset. You will understand this example later after you learn conditionals and logical expressions.</p>
+
+<pre><code class="language-output">#!/bin/bash
+$ [ -z "$var" ] && echo "var is undefined"
+$ var=0
+$ [[! -z "$var" ]] && echo "var is defined"
+</code></pre>
+
+<h2>Environment Variables</h2>
+
+<p>Every Bash session has a global scope. In this scope you can define environment variables. This is an array that contains name=value pairs. There are specific commands to add variables to this environment and inspect values. Usually these variables are defined using capitall letters.</p>
+
+<p>You can investigate the environment variales using command "env" or "set". To extract value of a single variable you can use command "echo" and prefix variable name with symbol "$". This may be confusing for beginners, because the Bash prompt uses the same symbol. Do not confuse the two.</p>
+
+<p>You can add a new variable to the environment by using command "export". After export the variable is available to echo command so you can display it's value. This command can also export functions not only variables!</p>
+
+<pre><code class="language-output">&gt;bash
+$ export TEST="bash is cool" 
+$ echo $TEST
+$ bash is cool
+$ 
+</code></pre>
+
+## String manipulation
+
+<p>Strings can be concatenated in Bash if they are side by side with other strings but not separated by a space. Any adiacent symbol except parathesis and spaces will be concatenated to the string. Strings can be modified using "+=" operator.</p>
+
+<h4>For instance:</h4>
+
+<pre><code class="language-output">&gt;bash
+  $ echo "hello ""world" 
+  hello world
+  $ echo a" test"
+  a test
+  $ 
+</code></pre>
+
+## Formatinc strings
+
+<p>Strings can be interpolated with variables. For this we use symbol "$" in front of variable, to access its value. The value is inserted in the string, replacing the variable placeholder. The string formating works with command "echo" and "printf" but also in expressions.</p>
+
+<h4>For instance:</h4>
+
+<pre><code class="language-output">&gt;bash
+  $ str="world"
+  $ echo "hello &str" 
+  hello world
+  $ x = 10 
+  $ echo "x = $x"
+  x = 10
+  $ 
+</code></pre>
 
 <hr>
 <p><b>Read next:</b>
-<a href="template.html">Page Name</a></p>
+<a href="math.html">Arithmetic Expressions</a></p>
 
 <!-- Footer -->
 <footer class="footer">
