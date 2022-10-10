@@ -39,12 +39,12 @@
 
 
 <div class="alert alert-secondary shadow-sm">
-Bash is a curly bracket language. Unlike all other curly bracket languages are used only for functions. The curly brackets have a secondary meaning. Other blocks have an original design, similar to Ada and Pascal, except blocks are starting and ending with different keywords.
+Bash is a curly bracket language. It uses curly brackets for functions and expressions. Unlike other languages, the curly brackets are not used for control statement blocks. Bash syntax is case sensitive. Most keywords are English reserved words but some abreviations or invented.
 </div>
 
 <h2>Hello World</h4>
 
-<p>This tutorial is based on code snippets we analyze. Next script is just a simple app that print on the console the message "Hello World". This is not much, but we can see several syntax choices that you must notice to start learning. Read this example and notes:</p>
+<p>This tutorial is based on code snippets. Next script is a simple app that print on the console the message "Hello World". From this example you can learn several syntax choices. This scrpt is saved with name: <b>hello.sh</b> and it can be executed using Bash.</p>
 
 <pre><code class="language-php line-numbers">#!/bin/bash
 echo "Hello World"
@@ -53,11 +53,11 @@ echo "Hello World"
 <h4>Notes:</h4>
 
 <ul>
-  <li>First line is called "chee bang" and is a special comment;</li>
-  <li>A string is enclosed in double quotes;</li>
-  <li>Second line "echo" is a function call with a parameter;</li>
+  <li>First line is called "cheebang" and is a special comment;</li>
+  <li>A string can be enclosed in double quotes;</li>
+  <li>Second line "echo" is a command call with a parameter;</li>
   <li>In Bash, we do not enclose arguments in paranthesis;</li>
-  <li>In Bash, end of line optional end with semicolon;</li>
+  <li>In Bash, the line is optional ending with semicolon;</li>
 </ul>
 
 <h2>REPL App</h2>
@@ -65,64 +65,36 @@ echo "Hello World"
 <p>A REPL application is a classic. You can display a menu and then read the input. Depending on the option, you enter a number. Then you create a jump table or a selection statement to execute one or other feature of the APP. Then, you repeat in a loop, reading next option.</p>
 
 <div align="center">
-  <img src="../images/repl-app.svg" alt="repl" srcset="../images/repl-app.png" width="640" class="img-fluid protect rounded shadow border" >
+  <img src="../images/repl-app.svg" alt="repl" srcset="../images/bash-repl.png" width="640" class="img-fluid protect rounded shadow border" >
   <p>REPL Application</p>
 </div>
 
 <h4>Your homework</h4>
 
-<p>Visit repl.it website and run the following example. You can enter an option and see it running. Press second option (2) then (1) to exit. Inspect the example. This is what we use to explain things in our next articles.</p>
+<p>Visit replit.com website and run the following example. You can enter an option and see it running. Select second option (2) to print: hello world, then (1) to exit. Inspect the code. This is the example we will use to explain many things in our next articles.</p>
 
 <p>Open: <a href="https://github.com/elucian/bash-repl" target="_blank" rel="nofollow">bash-repl app on repl.it</a></p>
 
 
 <h2>Demo Code</h2>
 
-<p>Next app is a demo I have initially created but later replace with a better version. Read the comments to understand how the application work. You do not have to understand this script, just browse the syntax. Read the notes afterwards.</p>
+<p>Next scripts are some of the REPL examples. You do not have to understand these scripts rigt now just browse the syntax then read the notes. If you are an experienced programmer use your chritical thinking skills to judge if you like this language. If you hate it, don't continue but look the other way.</p>
 
-<pre><code class="language-bash line-numbers">#bash-repl app
-# demo for Bash
-echo Bash Demo
-echo "-------------------"
-echo "0 - exit"
-echo "1 - hello"
-echo "2 - selection"
-echo "3 - for loop"
-echo "-------------------"
-
-option=9
-
-function hello()
-{
-  echo Hello World
-}
-
-# submenu demo
-function selection()
-{
-    echo "select:"
-    local op="one two three break"
-    # demonstrate selection
-    select x in $op;
-    do
-      # demonstrate conditional;
-      case $x in
-        (break) echo "done"; break;;
-        (one)   echo "one";;
-        (two|three)  echo "other";;
-      esac
-    done #select
-}
-
-# selection loop
-while (($option))
+<pre><code class="language-bash line-numbers"># demo for selection
+echo "sub-menu:"
+options="one two three break"
+# demonstrate selection
+select x in $options; 
 do
-  read -p ":>" option
-  case $option in
-    (0) echo "goodby";;
-    (1) hello;;
-    (2) selection;;
-  esac
+  # demonstrate case;
+  if [ "$x" == "break" ]; then
+    echo "done" 
+    break # exit selection
+  elif [ "$x" == "one" ]; then
+    echo "one"
+  else
+    echo "other"
+  fi #end if
 done
 </code></pre>
 
@@ -130,17 +102,39 @@ done
 
 <ol>
   <li>In Bash we can have global scope;</li>
-  <li>In global scope we can have statements;</li>
-  <li>The statements can be intrerupted by functions;</li>
-  <li>After one function is declared, it can be called;</li>
-  <li>Functions can be called from inside other statements;</li>
+  <li>In global scope we can have commands and declartions;</li>
+  <li>One statement can be on multiple lines of code;</li>
   <li>Bash do not have switch but select instead;</li>  
+  <li>Selection statement is a loop used to create REPL applications;</li>  
 </ol>
-<!-- work in progress-->
+
+<h2>Criticism</h2>
+
+<p>Bash syntax try to be punk and original but it breaks the Engineering design principles: To be consistent, to be easy to learn, to be "foolprove". Also Bash fail the KISS principle. In our opinion Bash should be forgoten and someone should use another language to create a better operating system based on a new language.</p>
+
+<h3>End of statement problems</h3>
+
+<p>Bash has optional semicolon but this is required in some cases where it should not be. Becouse of this, Bash needs continuation operator "\" at end of line, to tell the interpreter that a command is not finished and continue on the next line.</p>
+
+<h3>String problems</h3>
+
+<p>Symbols and strings are not conceptual different. This is very confusing. The parser is detecting a word and can't decide if is a string or a command. So the error message is wrong many times. It says: invalid command when in fact it should interpret the arguments like strings. So you better put all your substitutions and literals in double quotes.</p>
+
+<h3>Space problems</h3>
+
+<p>In Bash, the assign expression "=" and the variable must stick together. If you add a space like is the convention in most programming languages, you get an error that does not make sense. Well get use to it because this is happening often. Sometimes you need a space separator sometimes you don't depending on the context.</p>
+
+<h3>Anoyng symbols</h3>
+
+<p>Bash is using same symbol for too many things. For example {...} are used for blocks of code but also for ranges, string expansion, parameters and array elements. Round paranthesis (...) are used for declaring arrays and command groups but also for arithmetic expressions and arithmetic expansion. If you use it wrong you may end-up with error messages that drive you creasy until you learn how to do it right.</p>
+
+<h3>Lection learned</h3>
+
+<p>There is other much better language inspired from Bash. This language "PHP" is fixing many of Bash problems but inherite a similar design. Therefore Bash and PHP both are in decline. New languages have learned the lection: How not do make a programming language. Python, Ruby , Perl and recently Julia are 4 other languages competing with Bash for shell scripting.</p> 
 
 <hr>
 <p><b>Read next:</b>
-<a href="template.html">Page Name</a></p>
+<a href="types.html">Data Types</a></p>
 
 <!-- Footer -->
 <footer class="footer">
