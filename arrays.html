@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="Introductory Bash scripting.">
+  <meta name="description" content="How to declare and initialize arrays in Bash scripts.">
   <meta name="author" content="Elucian Moise">
-  <meta name="keywords" content="bash, script, linux, tutorial">
+  <meta name="keywords" content="bash, array, 'hash tables', maps script, linux, mac, shell, tutorial">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Website title -->
-  <title>Bash Arrays</title>
+  <title>Arrays & Maps</title>
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
@@ -34,24 +34,220 @@
     </div>
 </div><hr>
 
-
-<h1>Bash Arrays</h1>
-
+<h1>Bash Arrays & Maps</h1>
 
 <div class="alert alert-secondary shadow-sm">
-Work in progress.
+Bash has support for dinamic collections called "arrays". Arrays in Bash are mutable. You can add new elements and you can remove elements. So an Array can become sparsed. Bash version 4 has support for associative arrays.
 </div>
 
+<h2>Arrays Values</h2>
 
-<pre><code class="language-bash line-numbers"># demo script
-echo "hello world"
-</code></code></code></pre>
+<p>An array is a ordered collection of values indexed by an integer number. Bash is a dynamic language. The dype of values can be string or number mingled together. In bash 4.3 you can create references to arrays and then arrays of references is also possible.</p>
+
+<h4>Type Inference</h4>
+
+<div class="panel">
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel"><code class="language-output">&gt;bash
+$ a=(1 2 3)
+$ echo ${a[*]}
+1 2 3
+$ 
+</code></pre>
+<hr>
+</div>
+</div>
+
+<h4>Declaration</h4>
+
+<div class="panel">
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel"><code class="language-output">&gt;bash
+$ declare -a array
+$ array=(1 2 3)
+$ echo ${array[*]}
+1 2 3
+$ 
+</code></pre>
+<hr>
+</div>
+</div>
+
+<h4>Array expansion</h4>
+
+<p>You have probably notice already in the examples above, thos strange notation ${array[*]}. This is actually a form of string expansion. All elements of array are represented with indice "*" or "@".</p>
+
+<p>You can expand a particular element in one array by using a numeric index [n]. If the array element exist, it will be injected into the interpretor and you can capture it's value as a variable using notation: ${array[n]}.</p>
+
+<div class="panel">
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel"><code class="language-output">&gt;bash
+$ declare -a array
+$ array=(10 20 30 40 50 60)
+$ echo ${array[@]}
+10 20 30 40 50 60
+$ echo ${array[0]}
+10
+$ echo ${array[-1]}
+60 
+</code></pre>
+<hr>
+</div>
+</div>
+
+<h3>Array processing</h3>
+
+<p>Arrays are dynamic. You can add new elements in array, remove some elements and change element values. Most processing of arrays is performed in a loop. Next are some basic operations to work with arrays.</p>
+
+<h4>Array slicing</h4>
+
+<p>You can cut an array using a special notation similar to range expansion. After the array[*] you use column and limits like ":n:m" where :n is the start index and :m is the number of elements included in the new slice.</p>  
+
+<div class="panel">
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel"><code class="language-output">&gt;bash
+$ declare -a array
+$ array=(10 20 30 40 50)
+$ echo ${array[@]:3}
+40 50
+$ echo ${array[@]:2:3}
+30 40 50
+$ echo ${array[@]:-2}
+40 50
+</code></pre>
+<hr>
+</div>
+</div>
+
+<h4>Array references</h4>
+
+<p>Arrays are transfered by value. If you want to transfer array by reference you have to create a reference variable then you assign the array to the reference.</p>
+
+<div class="panel">
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel"><code class="language-output">&gt;bash
+$ declare -a array
+$ array=(a b c d e)
+$ declare -n ref
+ref=array
+$ echo ${ref[*]}
+a b c d e
+$ ref[1]="x"
+$ echo ${array[1]}
+a x c d e
+</code></pre>
+<hr>
+</div>
+</div>
+
+<p><b>Note:</b> Array references are avaliable from Bash 3.8 This feature is very valuable to create arrays of arrays. Otherwise you must use indirect variables.</p> 
+
+<h4>Array indexes</h4>
+
+<p>Sometimes is good to expand array indexes. This may be useful to compact an array that had some elements removed and becomed a sparsed array. In next example we create an emptu array and add sparsed elements, then display the indexes using operator ! = "intirect".</p>
+
+<div class="panel">
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel"><code class="language-output">&gt;bash
+$ array=()
+$ array[4]="four"
+$ array[10]="ten"
+$ array[2]="two"
+$ array[9]="nine"
+$ echo ${!array[*]}
+2 4 9 10
+$ ref[1]="x"
+$ echo ${array[1]}
+a x c d e
+</code></pre>
+<hr>
+</div>
+</div>
+
+<h4>Number of elements</h4>
+
+<p>You can inspect the number of elements in array by using symbol #, that is usually a comment but in this context has significants of "number". Syntax: @{#array[*]} will count all the elements.</p>
+
+<div class="panel">
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel"><code class="language-output">&gt;bash
+$ array=({1..100}})
+$ echo ${#array[*]}
+100
+$ unset array[10] 
+$ echo ${#array[*]}
+99
+$
+</code></pre>
+<hr>
+</div>
+</div>
+
+<h2>Array Demo</h2>
+
+<p>This demo is available for download. You can also modify this demo to create more modifications using other operators you have already learned.<p>
+
+<p>You can add new elements to an existing array using operator "+=" that is unusual but possible. Also you can use operator "++" or any modifier to change value for one element of an array.</p>
+
+<div class="row">
+
+<div class="column col-md-6 panel"><!-- first column -->
+<div class="panel-heading">mod-array.sh</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-bash line-numbers">#!/bin/bash
+declare -a dec=({1..3})
+declare -a hex=(16"#"A{A..C})
+echo dec=${dec[*]}
+echo hex=${hex[*]}
+# union between two arrays
+array=(${dec[*]} ${hex[*]})
+echo array=${array[*]}
+# add elements using range
+dec+=({7..9})
+echo dec=${dec[*]}
+# modify element by element
+(( dec[0]++  ))
+(( dec[1]++  ))
+(( dec[2]+=1 ))
+(( dec[3]=0, dec[4]=0, dec[5]=0 ))
+echo dec=${dec[*]}
+</code></pre>
+<hr>
+</div>
+</div>
+
+<div class="column col-md-6 panel"><!-- fsecond column -->
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-output">~/bash-repl$ bash mod-array.sh 
+dec=1 2 3
+hex=16#AA 16#AB 16#AC
+array=1 2 3 16#AA 16#AB 16#AC
+dec=1 2 3 7 8 9
+dec=2 3 4 0 0 0
+~/bash-repl$ 
+</code></pre>
+<hr>
+</div>
+</div>
+
+<p><b>Download here:</b><a href="https://github.com/elucian/bash-repl/blob/main/mod-array.sh" rel="nofollow" target="_blank">
+mod-array.sh</a></p>
 
 <!-- work in progress-->
 
 <hr>
 <p><b>Read next:</b>
-<a href="template.html">Page Name</a></p>
+<a href="conditionals.html">Conditionals</a></p>
 
 <!-- Footer -->
 <footer class="footer">
