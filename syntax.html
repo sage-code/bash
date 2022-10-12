@@ -46,9 +46,32 @@ Bash is a curly bracket language. It uses curly brackets for functions and expre
 
 <p>This tutorial is based on code snippets. Next script is a simple app that print on the console the message "Hello World". From this example you can learn several syntax choices. This scrpt is saved with name: <b>hello.sh</b> and it can be executed using Bash.</p>
 
-<pre><code class="language-php line-numbers">#!/bin/bash
-echo "Hello World"
+<!--two columns pattern-->
+<div class="row">
+
+<div class="column col-md-6 panel"><!-- first column -->
+<div class="panel-heading">hello.sh</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-bash line-numbers">#!/bin/bash
+echo "hello"
 </code></pre>
+<hr>
+</div>
+</div>
+
+<div class="column col-md-6 panel"><!-- fsecond column -->
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-output">~/bash-repl$ bash  hello.sh
+hello world
+$
+</code></pre>
+<hr>
+</div>
+</div>
+</div>
 
 <h4>Notes:</h4>
 
@@ -63,6 +86,7 @@ echo "Hello World"
 <h2>REPL App</h2>
 
 <p>A REPL application is a classic. You can display a menu and then read the input. Depending on the option, you enter a number. Then you create a jump table or a selection statement to execute one or other feature of the APP. Then, you repeat in a loop, reading next option.</p>
+
 
 <div align="center">
   <img src="img/bash-repl.svg" alt="repl" srcset="img/bash-repl.png" width="640" class="img-fluid protect rounded shadow border" >
@@ -80,7 +104,13 @@ echo "Hello World"
 
 <p>Next scripts are some of the REPL examples. You do not have to understand these scripts rigt now just browse the syntax then read the notes. If you are an experienced programmer use your chritical thinking skills to judge if you like this language. If you hate it, don't continue but look the other way.</p>
 
-<pre><code class="language-bash line-numbers"># demo for selection
+<!--two columns pattern-->
+<div class="row">
+<div class="column col-md-6 panel"><!-- first column -->
+<div class="panel-heading">selection.sh</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-bash line-numbers"># demo for selection
 echo "sub-menu:"
 options="one two three break"
 # demonstrate selection
@@ -97,6 +127,33 @@ do
   fi #end if
 done
 </code></pre>
+<hr>
+</div>
+</div>
+
+<div class="column col-md-6 panel"><!-- fsecond column -->
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-output">~/bash-repl$ bash selection.sh
+1) one
+2) two
+3) three
+4) break
+#? 1
+one
+#? 2
+other
+#? 3
+other
+#? 4
+done
+~/bash-repl$ 
+</code></pre>
+<hr>
+</div>
+</div>
+</div>
 
 <h4>Notes:</h4>
 
@@ -130,11 +187,11 @@ done
 
 <h3>Lection learned</h3>
 
-<p>There is other much better language inspired from Bash. This language "PHP" is fixing many of Bash problems but inherite a similar design. Therefore Bash and PHP both are in decline. New languages have learned the lection: How not do make a programming language. Python, Ruby , Perl and recently Julia are 4 other languages competing with Bash for shell scripting.</p> 
+<p>There is other much better language inspired from Bash. This language "PHP" is fixing many of Bash problems but inherite a similar design. Therefore Bash and PHP both are in decline. New languages have learned the lection: How not do make a programming language. Python, Ruby, Perl and recently Julia are 4 other languages competing with Bash for shell scripting.</p> 
 
 <hr>
 <p><b>Read next:</b>
-<a href="types.html">Data Types</a></p>
+<a href="shell.html">Shell Console</a></p>
 
 <!-- Footer -->
 <footer class="footer">

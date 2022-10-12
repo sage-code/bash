@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="Introductory Bash scripting.">
+  <meta name="description" content="Introductory Shell Console also known as Command Line.">
   <meta name="author" content="Elucian Moise">
-  <meta name="keywords" content="bash, script, linux, tutorial">
+  <meta name="keywords" content="shell, console, linux, tutorial">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Website title -->
-  <title>Bash Shell</title>
+  <title>Shell Console</title>
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
@@ -35,23 +35,117 @@
 </div><hr>
 
 
-<h1>Shell Commands</h1>
+<h1>Shell Console</h1>
 
-
-<div class="alert alert-secondary shadow-sm">
-Work in progress.
+<div class="alert alert-secondary shadow-sm">Shell console is available on your computer if you have installed Linux or MacOS. Also shell console is available on any Unix or FreeBSD system. On Windows there is a console called "Command Line" but for Bash you need a simulator. In this article we try to demistify the misteries of this tool.
 </div>
 
+<h2>Unix console</h2>
 
-<pre><code class="language-bash line-numbers"># demo script
-echo "hello world"
-</code></code></code></pre>
+<p>Most systems have a GUI (UX) user interface. This is using the mouse to select a program to run. Each program or application may be represented as an icon. Some operating systems have a menu and a task bar. Learning this things is out fo the scope of this tutorial.</p>
 
-<!-- work in progress-->
+<p>In the app list or menu system tools you will find a speciall app that usually is a brack square. If you click this icon you will start the console.</p>
+
+<p>Older computers and especially servers do not need GUI and can run just console applications. The console on these systems is the entire screen. For these kind of computers the screen is also much smaller than the modern desktops.</p>
+
+<h2>Windows console</h2>
+
+<p>On Windows you must use Windows Start button with left mouse click to run a command and type: cmd - this start the command line but this is not the Linux shell. You need to install a different application that is a shell symulator to run Bash.
+
+<p>Windows 10 has support for virtualization (WSL) Windows Sybsystem for Linux. You can use this feature to install Ubuntu and run native shell commands using a real Linux.</p>
+
+<p>To work remote you can install Putty that is a free software. You can connect to a remote Linux or Unix machine and run remote commands in Bash. You can also use SCP or SFTP protocols to transfer files from local folder to a remote folder.</p>
+
+<p>Visit and download: <a href="https://putty.org" rel="nofollow" target="_blank">https://putty.org</a></p>
+
+
+<h2>Secure Shell</h2>
+
+<p>You can work remote using SSH (Secure Shell) protocol. This can be started from console using command: ssh with connection credentials and address. If the remote machine is listening SSH protocol and your firewall alows it, you can type commands locally but they are executed remotely.</p>
+
+<p>There are graphic tools that can connect using SSH protocol to transfer files over SCP or SFTP. Some of these tools are licensed, but there are free trials that you can try before buy.</p>
+
+<p>Visit and download:<a href="https://winscp.net/eng/index.php" rel="nofollow" target="_blank">https://winscp.net</a></p>
+
+<h2>Shell commands</h2>
+
+<p>After you start the shell console, a prompt will wait for you input. You must know at least several basic commands to get started. One of the most handful command is: "man". This command will display a list of commands that you can use.</p>
+
+<p>Notice that shell commands not alwais are the same as Bash commands. On every different operating system you can have a different default shell.</p>
+
+<ul>
+    <li>Z shell (zsh)</li>
+    <li>C shell (csh)</li>
+    <li>Korn shell (sh)    </li>
+    <li>Bourne shell (bash)</li>
+</ul>
+
+<p>You can install on a computer different versions of Bash in different folders but only one should be in your $PATH. This is the default Bash interpreter that starts automaticly when you open the console and type: bash command.</p>
+
+<h3>First commands</h2>
+
+<p>Let's start learning two simple commands: "echo" and "pwd". The "echo" is used to output a string to the standard output, that is usually the console. The "pwd" command display the current folder. In Bash, there is a default folder that is current, and you can change it using "cd" command.
+
+<!--default single pannel-->
+<div class="panel">
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel"><code class="language-output">&gt;bash
+~$ echo "hello"
+hello
+~$
+~$ pwd
+/Users/sagecode/Documents/GitHub/bash
+~$
+~$ cd ..
+~$ pwd
+/Users/sagecode/Documents/GitHub
+$
+</code></pre>
+<hr>
+</div>
+</div>
+
+<h3>Frequent symbols</h3>
+
+<p>Bash is a language of conventions, symbols and delimitors. You must understend these symbols before learning the commands. It is not difficult, let's try some.</p>
+
+<table class="table table-bordered table-striped" style="width: 100%;">
+<tr>    
+<th>Sybol</th>
+<th>Purpose</th>
+</tr></thead>
+<tbody>
+<tr><td>$   </td><td>Bash prompt       </td></tr>
+<tr><td>.   </td><td>Current folder    </td></tr>
+<tr><td>..  </td><td>Parent folder     </td></tr>
+<tr><td>-   </td><td>Command option    </td></tr>
+<tr><td>--  </td><td>Long option       </td></tr>
+<tr><td>&   </td><td>Run in background </td></tr>
+<tr><td>&gt;</td><td>Output redirect   </td></tr>
+<tr><td>&lt;</td><td>Inpput redirect   </td></tr>
+<tr><td>|   </td><td>Pipeline          </td></tr>
+<tr><td>/   </td><td>Root folder       </td></tr>
+<tr><td>~   </td><td>User home folder  </td></tr>
+<tr><td>""  </td><td>Long filenames    </td></tr>
+</tbody>
+</table>
+
+<p><b>Note:</b> Most of these symbols are used for other things in shell scripts, depending on the context. This is why Bash is difficult to master because you have to learn and relearn symbol's multiple ussages.</p>
+
+<h2>Finding help</h2>
+
+<p>You can find help in the shell command. First method is to use command: <code>man command | more</code> This will display the help for a particule command and let you scroll down by using space or enter key. You can end help mode using ESC key, then type ":Q" and you are out. </p>
+
+<p>The second way to find help is by using any command with -h option. This will not execute the command but display a list of options, and eventually an exemple that is good enaugh to remenber what you have probably forgotten.</p>
+
+<p>Third method is to navigate in this tutorial or other external resources. You can also use Google search but my advice is to learn from reference manuals. This is the best free resource I could find:</p>
+
+<p><b>Bash Reference Manual:</b><a href="https://devdocs.io/bash-builtin-commands/" rel="nofollow" target="_blank">https://devdocs.io</a></p>
 
 <hr>
 <p><b>Read next:</b>
-<a href="template.html">Page Name</a></p>
+<a href="types.html">Data Types</a></p>
 
 <!-- Footer -->
 <footer class="footer">

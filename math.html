@@ -41,8 +41,9 @@
 Bash is not a math genius. However if you must make some calculations in Bash you have all the ingredients. You can evaluate an expression and create a result. However Bash do not have float numbers only integers.
 </div>
 
-<h4>Example</h4>
-
+<div class="panel">
+<div class="panel-heading">Example</div>
+<div class="panel-body">
 <pre><code class="language-bash line-numbers">#!/bin/bash
 i=0
 
@@ -57,7 +58,9 @@ let "i=i+1"
 
 #this also works
 let i=i+1
-</code></code></code></pre>
+</code></pre>
+</div>
+</div>
 
 <p><b>Notes:</b> In this example there are 4 different ways to create and execute a simple expression. The question is which one is most convenient. Well when I'm finding the answer I will let you know. Until then I will just use them alternatively in different places of the code. Maybe you can contribute later making a comment.</p> 
 
@@ -140,15 +143,18 @@ let i=i+1
 
 <p>Believe it or not, Bash enable binary number, octal number and hexadecimal numbers. Actually it has a cool literal for these kind the numbers. Use notation: <code>base#digits</code> where base can be: 2,8,16 and digits can be (0,1) or (0..7) or (0..9ABCDEF).</p>  
 
-<h4>Console</h4>
-
-<pre><code class="language-output">&gt;bash
+<!--default single pannel-->
+<div class="panel">
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel"><code class="language-output">&gt;bash
 $ a=2#001
 $ b=2#010    
 $ echo $((a|b))
 3
 $
-</code></pre>  
+</code></pre>
+</div></div>
 
 <p>As you can see in above example I have used bash CLI to make a simple bitwise operation between two binary number. However, the bitwise operations work with decimal numbers as well. Binary representation or hex representation are good alternative but difficult to print out. Bash do not have direct format for printing out binary numbers.</p>
 
@@ -208,10 +214,15 @@ $
 
 <p>To print binary I have found on the internet next expression, and I have try to explain it here. It has take me an entire day to understend what's going on. Maybe you will find this useles, but is a good exercise of your future bash skills.</p>
 
-<pre><code class="language-output">#!/bin/bash
+<!--default single pannel-->
+<div class="panel">
+<div class="panel-heading">Example</div>
+<div class="panel-body">
+<pre class="code-panel"><code class="language-output">#!/bin/bash
 read -p "number:" n
 echo $(echo "obase=2;$n" | bc)
 </code></pre>
+</div></div>
 
 <p>Don't panic. I have created a script that can do the conversion, you can study this script much later after you learn the entire Bash syntax. For now is good to know that the expression above is using an external command called "bc" that is a "bynary calculator". This has it's own language. obase=2 is an option of this language to print a number in binary. This is called "comman expansion" and "pipeline". We we will learn how to make these kind of expressions much later. (LOL)</p>
 

@@ -53,7 +53,11 @@ Bash is a dynamic language that do not use data types to diferentiate variables.
 
 <p>Initial value is given by using assign sign "=". Some other operators like "+=" for examples will cause a new variable to be created and assigned the default zero value. This can be an empty string or 0 depending on the context.</p>
 
-<pre><code class="language-bash line-numbers">#!/bin/bash
+<!--console pannel-->
+<div class="panel">
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel"><code class="language-output">#!/bin/bash
 var=1
 echo $var
 
@@ -63,6 +67,7 @@ echo $str
 new+=1
 echo $new
 </code></pre>
+</div></div>
 
 <h3>Constant Literals</h3>
 
@@ -74,13 +79,19 @@ echo $new
 
 <p>In next example we display a sequence of commands given to the Bash interpreter in CLI (Command Line Interface). You can do this for quick testing or issuing commands.</p>
 
-<pre><code class="language-output">&gt;bash
+<!--console pannel-->
+<div class="panel">
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel"><code class="language-output">&gt;bash
 bash-3.2$
 bash-3.2$ xp=1+2+3
 bash-3.2$ echo $xp 
 1+2+3
 bash-3.2$
 </code></pre>
+</div></div>
+
 
 <p><b>Note:</b> In previous example we may expect for the expresion to be evaluated and the result to be numeric but Bash has other ideas. It will create a string that is containing the expression as given.</p>
 
@@ -90,7 +101,11 @@ bash-3.2$
 
 <h4>Examples</h4>
 
-<pre><code class="language-output">~&gt;bash
+<!--console pannel-->
+<div class="panel">
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel"><code class="language-output">~&gt;bash
 $ echo "This is \n a long string \n with new lines"
 This is
 a long string
@@ -98,6 +113,7 @@ with new lines
 $exit
 ~&gt;
 </code></pre>
+</div></div>
 
 <p><b>Note:</b> In this example, $ is the Bash prompt. Bash is waiting for a new command. You can stop CLI by typing command: exit. Symbol ~ represent home folder and is sometimes present in the command line prompt.</p>
 
@@ -109,7 +125,11 @@ $exit
 
 <p>Expression [ -z "$var" ] represents a conditional expression that is evaluated to true if variable var is empty or unset. You will understand this example later after you learn conditionals and logical expressions.</p>
 
-<pre><code class="language-output">#!/bin/bash
+<!--console pannel-->
+<div class="panel">
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel"><code class="language-output">&gt;bash
 $ [ -z "$var" ] && echo "var is undefined"
 $ var is undefined
 $ var=0
@@ -117,6 +137,7 @@ $ [[! -z "$var" ]] && echo "var is defined"
 var is defined
 $
 </code></pre>
+</div></div>
 
 <h2>Environment Variables</h2>
 
@@ -126,12 +147,17 @@ $
 
 <p>You can add a new variable to the environment by using command "export". After export the variable is available to echo command so you can display it's value. This command can also export functions not only variables!</p>
 
-<pre><code class="language-output">&gt;bash
+<!--console pannel-->
+<div class="panel">
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel"><code class="language-output">&gt;bash
 $ export TEST="bash is cool" 
 $ echo $TEST
 $ bash is cool
 $ 
 </code></pre>
+</div></div>
 
 <h2>String manipulation</h2>
 
@@ -139,13 +165,18 @@ $
 
 <h4>For instance:</h4>
 
-<pre><code class="language-output">&gt;bash
-  $ echo "hello ""world" 
-  hello world
-  $ echo a" test"
-  a test
-  $ 
+<!--console pannel-->
+<div class="panel">
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel"><code class="language-output">&gt;bash
+$ echo "hello ""world" 
+hello world
+$ echo a" test"
+a test
+$ 
 </code></pre>
+</div></div>
 
 <h3>String interpolation</h3>
 
@@ -153,7 +184,11 @@ $
 
 <h4>For instance:</h4>
 
-<pre><code class="language-output">&gt;bash
+<!--console pannel-->
+<div class="panel">
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel"><code class="language-output">&gt;bash
   $ str="world"
   $ echo "hello &str" 
   hello world
@@ -162,6 +197,7 @@ $
   x = 10
   $ 
 </code></pre>
+</div></div>
 
 <h3>Longer strings</h3>
 
@@ -171,7 +207,14 @@ $
 
 <p>I have create this example named "longstr.sh" on replit.com website.</p>
 
-<pre><code class="language-bash line-numbers">&gt;>#!/bin/bash
+<!--two columns pattern-->
+<div class="row">
+
+<div class="column col-md-6 panel"><!-- first column -->
+<div class="panel-heading">longstr.sh</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-bash line-numbers">#!/bin/bash
 echo \
 "this
    is
@@ -179,10 +222,15 @@ echo \
    long
    string"
 </code></pre>
+<hr>
+</div>
+</div>
 
-<h4>Console</h4>
-
-<pre><code class="language-output">&gt;bash longstr.sh
+<div class="column col-md-6 panel"><!-- fsecond column -->
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-output">&gt;bash longstr.sh
 this
   is
   a
@@ -190,6 +238,11 @@ this
   string
 $
 </code></pre>
+<hr>
+</div>
+</div>
+</div>
+
 
 <hr>
 <p><b>Read next:</b>
