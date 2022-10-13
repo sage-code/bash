@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="Bash conditionals explained for beginers.">
+  <meta name="description" content="Bash conditionals and decision branches explained.">
   <meta name="author" content="Elucian Moise">
-  <meta name="keywords" content="bash, script, linux, conditional, decision, fork, branch,if else">
+  <meta name="keywords" content="sage, bash, script, conditional, decision, fork, branch,if else elsif">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Website title -->
@@ -37,15 +37,122 @@
 
 <h1>Bash Conditionals</h1>
 
-
 <div class="alert alert-secondary shadow-sm">
-Work in progress.
+Conditionals are expressions that can be evaluated to Boolean values: true or false. You can use Boolean values or conditional expressions to control the logical code workflow.
+</div>
+
+<h2>Conditional delimitors</h2>
+
+<p>Conditional expressions are enclosed in square brackets like this [...] for numeric expressions or this [[ ... ]] for string expressions that need extra processing. These expressions have distinct Logic operators that can be:</p>
+
+<!--two columns pattern-->
+<div class="row">
+
+<div class="column col-md-6 panel"><!-- first column -->
+<div class="panel-heading">Boolean operators</div>
+<div class="panel-body code-panel">
+<ul>
+   <li>&& = and</li>
+   <li>|| = or</li> 
+   <li>!&nbsp = not</li>
+</ul>
+</div>
+</div>
+
+<div class="column col-md-6 panel"><!-- fsecond column -->
+<div class="panel-heading">Relational operators</div>
+<div class="panel-body code-panel">
+<ul>
+   <li>-lt = less then</li>
+   <li>-gt = greater then</li> 
+   <li>-eq = equal</li>
+</ul>
+</div>
+</div>
 </div>
 
 
-<pre><code class="language-bash line-numbers"># demo script
-echo "hello world"
-</code></code></code></pre>
+<h2>Exit status</h2>
+
+<p>In Bash, any command that return exit status 0 (success) is also considered true. When exit status is not 0, usually 1 that is considered false.</p>
+
+<p>In scripts you can establish exit status using command: exit. It is possible the exit command is missing. If so, the exit status is 0 even if you have send some text to error stream &2.</p>
+
+<h2>Decision ladder</h2>
+
+<p>In the example below we use conditionals to demonstrate a classic decision statement called "ladder". It consist in several exclusive branches that are executed alternative depending on several conditionals. Each conditional is controling a single branch. When do condition is true, the default branch is executed.</p>
+
+<div class="text-center">
+  <img src="../images/ladder.svg" alt="ladder"
+       width="500" class="img-fluid protect rounded shadow border" >
+  <p>Ladder<br>Logic Diagram</p>
+</div>
+
+<hr>
+
+<h4>Example</h4>
+
+<p>This example can be run on replit.com. Your task is to open this example and run it 3 times with deverse numbers. You can compare any number or letter with other number or letter.</p>
+
+<!--two columns pattern-->
+<div class="row">
+
+<div class="column col-md-6 panel"><!-- first column -->
+<div class="panel-heading">if.sh</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-bash line-numbers"># simple decision branch
+read -p "a=" a 
+read -p "b=" b
+if [[ "$a" -eq "$b" ]]
+then 
+  echo "a = b" 
+elif [[  "$a" -lt "$b"  ]]
+then
+  echo "a < b"
+elif [[  "$a" -gt "$b"  ]]
+then
+  echo "a > b"
+else 
+  echo error; exit 1
+fi; exit 0
+</code></pre>
+</div>
+</div>
+
+<div class="column col-md-6 panel"><!-- fsecond column -->
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-output">~/bash-repl$ bash if.sh 
+a=10
+b=25
+a < b
+~/bash-repl$ bash if.sh 
+a=10
+b=10
+a = b
+~/bash-repl$ bash if.sh 
+a=12
+b=10
+a > b
+~/bash-repl$ 
+</code></pre>
+</div>
+</div>
+</div>
+
+<h4>Notes:</h4>
+<ol>
+  <li>In this script we use [[..]] to support letters;</li>
+  <li>With [..] the conditionals will work only with numbers;</li>
+  <li>Math relation operators are aldo working with conditionals;</li>
+</ol>
+
+<p>Open script:<a href="https://replit.com/@elucian/bash-repl#if.sh" 
+      rel="nofollow" target="_blank">
+if.sh
+</a></p>
 
 <!-- work in progress-->
 
