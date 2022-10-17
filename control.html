@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="Introductory Bash scripting.">
+  <meta name="description" content="A comprehensive introduction to Bash control flow statements. ">
   <meta name="author" content="Elucian Moise">
-  <meta name="keywords" content="bash, script, linux, tutorial">
+  <meta name="keywords" content="sage, bash, control, flow, if, elif, else, select, case, while, until, for, loop, continue, break, fork, decision, branches">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Website title -->
-  <title>Bash Control</title>
+  <title>Bash Control Flow</title>
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
@@ -35,23 +35,412 @@
 </div><hr>
 
 
-<h1>Control Flow</h1>
+<h1>Bash Control Flow</h1>
 
 
 <div class="alert alert-secondary shadow-sm">
-Work in progress.
+Imagine a program like a chemical plant. It has pipes, rezervoirs and reaction recipients. The liquid flows along and is controlled by actuators, fossets and valves. Analogic we can control the logical flow of a program using specific statements.
+</div>
+
+<p>Control flow statements are introduced by structured programming languages. Fortran, Pascal, Ada, C all these have similar control flow statements. Modern languages are using also control flow statements.</p>
+
+<p>Next we enumerate only the most popular control flow statements you can find in programming languages. These are implemented a bit different in Bash but the functionality is the same in all languages.</p>
+
+<h4>Popular statements</h4>
+
+<ul>
+   <li><a href="#decision">Decision</a></li>
+   <li><a href="#repetition">Repetition</a></li>
+   <li><a href="#selection" >Selection</a></li>   
+</ul>
+
+<h2><a id="decision">Decision</a></h2>
+
+
+<p> The most common and maybe the most important control flow statement in programming is the decision statement. A decision is based on a conditional expression that is also known as logical expression. You must understand propositional logic to be able to make correct conditions. Check next diagram to understand the decision workflow diagram.</p>
+
+<div align="center">
+  <img src="../images/decision.jpg" alt="decision" srcset="../images/decision.svg" width="520" class="img-fluid protect rounded shadow border" >
+  <p>Decision Diagram</p>
+</div>
+
+<!--two columns pattern-->
+<div class="row">
+
+<div class="column col-md-6 panel"><!-- first column -->
+<div class="panel-heading">decision.sh</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-bash line-numbers">#!/bin/bash
+# demo how to deal with Boolean
+a=true
+if $a; then
+   echo "0. expected"
+fi
+# test 1: b is defined but later
+if $b; then
+   echo "1. unexpected"
+else
+   echo "1. expected"
+fi
+# variable b is defined later
+b=false
+# test 2 compare booleans
+if [ $a != $b ]; then
+   echo "2. expected"
+else
+   echo "2. unexpected"
+fi
+# use quotes to compare strings
+# much safer approach
+if [ "$a" == "$b" ]; then
+   echo "3. unexepected"
+else
+   echo "3. expected"
+fi
+</code></pre>
+</div>
+</div>
+
+<div class="column col-md-6 panel"><!-- fsecond column -->
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-output">~/bash-repl$ bash decision.sh
+0. expected
+1. unexpected
+2. expected
+3. expected
+~/bash-repl$ 
+</code></pre>
+</div>
+</div>
+</div>
+
+<h2><a id="repetition">Repetition</a></h2>
+
+
+<div class="alert alert-secondary shadow-sm">Repetition is a block of code containing several statements that can be executed multiple times. The number of times is determined by a control condition. Sometimes the repetition is forever and this is called infinite loop. There are 2 kind of repetition statements in Python: &quot;while&quot; and &quot;for&quot;.</div>
+
+<h3>While statement</h3>
+
+<p>The <b><em>while</em></b> statement is used for repeated execution as long as a conditional&nbsp;expression is true. The conditional expression can depend of a control variable that is modified inside the repetitive block. The expression is evaluated for each iteration. When the expression result becomes false the block is terminated.</p>
+
+<div class="text-center">
+  <img src="../images/while.svg" alt="while loop"
+       width="600" class="img-fluid protect rounded shadow border" >
+  <p>While Loop</p>
+</div>
+
+<p><b>Note:</b> While repeatedly tests the conditional expression and, if the result is true, it executes the repetitive block. When the expression is false the next statement after keyword "done" is executed.</p>
+
+<!--two columns pattern-->
+<div class="row">
+
+<div class="column col-md-6 panel"><!-- first column -->
+<div class="panel-heading">for-int.sh</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-bash line-numbers">#!/bin/bash
+#source script
+let x=0
+echo "start x = 0"
+while [[ $x -lt 5 ]]
+do
+     echo "x = $x"
+     let x+=1
+done
+echo "final x = $x"
+
+# in reverse order
+while (( $x > 0 ))
+do
+     echo "x = $x"
+     let x-=1
+done
+echo "final x = $x"
+</code></pre>
+</div>
+</div>
+
+<div class="column col-md-6 panel"><!-- fsecond column -->
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-output">~/bash-repl$ bash while.sh
+start x = 0
+x = 0
+x = 1
+x = 2
+x = 3
+x = 4
+final x = 5
+x = 5
+x = 4
+x = 3
+x = 2
+x = 1
+final x = 0
+~/bash-repl$ 
+</code></pre>
+</div>
+</div>
+</div>
+
+<h3>For statement</h3>
+
+<p>The classic <em>for</em> statement in Bash is similar to Java or C.  In tbis form the loop has three components separated by semicolons. Not all 3 are executed in the same time:</p>
+
+<ol>
+<li>the <b><em>init statement</em></b>: executed before the first iteration</li>
+<li>the <em><b>condition expression</b></em>: evaluated before every iteration</li>
+<li>the <em><b>post statement</b></em>: executed at the end of every iteration</li>
+</ol>
+
+<div class="text-center">
+  <img src="../images/classic-for.svg" alt="classic-for"
+       width="600" class="img-fluid protect rounded shadow border" >
+  <p>Iteration Diagram</p>
+</div>
+
+<p><b>Note:</b> You can intrerupt any loop using "break" statement. Also you can shortcut execution of a loop using "continue". Howeve, the interpretation of post is happening at the right time so there is no danger that you enter in infinite loop.</p>
+
+<!--two columns pattern-->
+<div class="row">
+
+<div class="column col-md-6 panel"><!-- first column -->
+<div class="panel-heading">for-int.sh</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-bash line-numbers">#!/bin/bash
+
+# for loop interuptions
+for (( i=0; i<=100; i++ ))
+do
+   # Output only even numbers
+   if ((  i % 2 == 0 )); then
+      echo "Element $i"
+      continue
+   fi
+
+   # intreruption conditional
+   if (( i > 20 )); then
+      break
+   fi
+done
+</code></pre>
+</div>
+</div>
+
+<div class="column col-md-6 panel"><!-- fsecond column -->
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-output">~/bash-repl$ bash for-int.sh
+Element 0
+Element 2
+Element 4
+Element 6
+Element 8
+Element 10
+Element 12
+Element 14
+Element 16
+Element 18
+Element 20
+~/bash-repl$ 
+</code></pre>
+</div>
+</div>
+</div>
+
+<h3>Range pattern</h4>
+
+<p>In bash, the for loop can be used with a range generator that is similar to Python language. In this case there is no need for all 3 expressions and the syntax is a little different.</p> 
+
+<!--two columns pattern-->
+<div class="row">
+
+<div class="column col-md-6 panel"><!-- first column -->
+<div class="panel-heading">range.sh</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-bash line-numbers">#!/bin/bash
+
+# normal range
+for i in {0..5}
+do
+  echo "Element $i"
+done
+
+echo ------------------
+
+# reverse range
+# with ratio 2
+for i in {10..0..2}
+do
+  echo "Element $i"
+done
+</code></pre>
+</div>
+</div>
+
+<div class="column col-md-6 panel"><!-- fsecond column -->
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-output">~/bash-repl$ bash range.sh
+Element 0
+Element 1
+Element 2
+Element 3
+Element 4
+Element 5
+------------------
+Element 10
+Element 8
+Element 6
+Element 4
+Element 2
+Element 0
+~/bash-repl$ 
+</code></pre>
+</div>
+</div>
+</div>
+
+<h3>Visitor pattern</h3>
+
+<p>A better way to use for loop is when you use it to visit elements of an array. It is specially difficult to use classic for loop with arrays due to existence of gaps in Bash arrays. To avoid possible errors finding the elements it is safe to use this pattern.</p>
+
+<!--two columns pattern-->
+<div class="row">
+
+<div class="column col-md-6 panel"><!-- first column -->
+<div class="panel-heading">array.sh</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-bash line-numbers"># initialize an array
+myArray=(1 2 "three" 4 "five")
+
+#visit all elements
+for t in ${myArray[@]}; do
+  echo $t
+done
+echo "-------------------"
+
+#visit all element by index
+for t in ${!myArray[@]}; do
+  echo ${myArray[$t]}
+done
+</code></pre>
+</div>
+</div>
+
+<div class="column col-md-6 panel"><!-- fsecond column -->
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-output">~/bash-repl$ bash array.sh
+1
+2
+three
+4
+five
+-------------------
+1
+2
+three
+4
+five
+~/bash-repl$ 
+</code></pre>
+</div>
+</div>
 </div>
 
 
-<pre><code class="language-bash line-numbers"># demo script
-echo "hello world"
-</code></code></code></pre>
+<h2><a id="selection">Selection</a></h2>
 
-<!-- work in progress-->
+<p>A REPL application is a classic example for selection statement. You can display a menu and then read the input. To select one option, you enter a number from keyboard. Then you use a jump table or a selection statement to execute one or other feature or command from the script. Then, you repeat in a loop, reading next option.</p>
+
+<div align="center">
+  <img src="img/bash-repl.svg" alt="repl" width="640" class="img-fluid protect rounded shadow border" >
+  <p>REPL Application</p>
+</div>
+
+
+<h2>Demo Code</h2>
+
+<p>Next scripts are some of the REPL examples. You do not have to understand these scripts rigt now just browse the syntax then read the notes. If you are an experienced programmer use your chritical thinking skills to judge if you like this language. If you hate it, don't continue but look the other way.</p>
+
+<!--two columns pattern-->
+<div class="row">
+<div class="column col-md-6 panel"><!-- first column -->
+<div class="panel-heading">selection.sh</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-bash line-numbers"># demo for selection
+echo "sub-menu:"
+options="one two three break"
+# demonstrate selection
+select x in $options; 
+do
+  # demonstrate decision ladder
+  if [ "$x" == "break" ]; then
+    echo "done" 
+    break # exit selection
+  elif [ "$x" == "one" ]; then
+    echo "one"
+  else
+    echo "other"
+  fi #end if
+done
+</code></pre>
+</div>
+</div>
+
+<div class="column col-md-6 panel"><!-- fsecond column -->
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-output">~/bash-repl$ bash selection.sh
+1) one
+2) two
+3) three
+4) break
+#? 1
+one
+#? 2
+other
+#? 3
+other
+#? 4
+done
+~/bash-repl$ 
+</code></pre>
+</div>
+</div>
+</div>
+
+<h4>Notes:</h4>
+
+<ol>
+  <li>In Bash we can have global scope;</li>
+  <li>In global scope we can have commands and declartions;</li>
+  <li>One statement can be on multiple lines of code;</li>
+  <li>Bash do not have switch but select instead;</li>    
+</ol>
+
+<h4>Your homework</h4>
+
+<p>Visit replit.com website and run the following example. You can enter an option and see it running. Select second option (2) to print: hello world, then (1) to exit. Inspect the code. This is the example we will use to explain many things in our next articles.</p>
+
+<p>Open: <a href="https://github.com/elucian/bash-repl" target="_blank" rel="nofollow">bash-repl app on repl.it</a></p>
 
 <hr>
 <p><b>Read next:</b>
-<a href="template.html">Page Name</a></p>
+<a href="functions.html">Functions</a></p>
 
 <!-- Footer -->
 <footer class="footer">

@@ -54,9 +54,14 @@ Bash is a curly bracket language. It uses curly brackets for functions and expre
 <div class="panel-body">
 <pre class="code-panel">
 <code class="language-bash line-numbers">#!/bin/bash
-echo "hello"
+echo -n "hello "
+
+function print {
+  echo $1
+}
+
+print "world"
 </code></pre>
-<hr>
 </div>
 </div>
 
@@ -68,7 +73,6 @@ echo "hello"
 hello world
 $
 </code></pre>
-<hr>
 </div>
 </div>
 </div>
@@ -83,89 +87,33 @@ $
   <li>In Bash, the line is optional ending with semicolon;</li>
 </ul>
 
-<h2>REPL App</h2>
+<h2>Script Demo</h2>
 
-<p>A REPL application is a classic. You can display a menu and then read the input. Depending on the option, you enter a number. Then you create a jump table or a selection statement to execute one or other feature of the APP. Then, you repeat in a loop, reading next option.</p>
+<p>Let's glance a more sofisticated example. Read this example but be aware you will probably do not understand it. Is our job to explain the syntax and you will be able to read this code after you finish the tutorial</p>
 
-
-<div align="center">
-  <img src="img/bash-repl.svg" alt="repl" srcset="img/bash-repl.png" width="640" class="img-fluid protect rounded shadow border" >
-  <p>REPL Application</p>
-</div>
-
-<h4>Your homework</h4>
-
-<p>Visit replit.com website and run the following example. You can enter an option and see it running. Select second option (2) to print: hello world, then (1) to exit. Inspect the code. This is the example we will use to explain many things in our next articles.</p>
-
-<p>Open: <a href="https://github.com/elucian/bash-repl" target="_blank" rel="nofollow">bash-repl app on repl.it</a></p>
-
-
-<h2>Demo Code</h2>
-
-<p>Next scripts are some of the REPL examples. You do not have to understand these scripts rigt now just browse the syntax then read the notes. If you are an experienced programmer use your chritical thinking skills to judge if you like this language. If you hate it, don't continue but look the other way.</p>
-
-<!--two columns pattern-->
-<div class="row">
-<div class="column col-md-6 panel"><!-- first column -->
-<div class="panel-heading">selection.sh</div>
+<!--code pannel-->
+<div class="panel">
+<div class="panel-heading">files.sh</div>
 <div class="panel-body">
-<pre class="code-panel">
-<code class="language-bash line-numbers"># demo for selection
-echo "sub-menu:"
-options="one two three break"
-# demonstrate selection
-select x in $options; 
+<pre class="code-panel"><code class="language-bash line-numbers">#!/bin/bash
+#list script files
+for fhnd in *.sh
 do
-  # demonstrate decision ladder
-  if [ "$x" == "break" ]; then
-    echo "done" 
-    break # exit selection
-  elif [ "$x" == "one" ]; then
-    echo "one"
-  else
-    echo "other"
-  fi #end if
+  printf '_%.0s' {1..30}
+  echo; echo "#file: $fhnd"
+  i=0
+  # display first 3 lines of code
+  while read -r line; do
+      echo $line
+      if (( i == 3 )); then break; fi
+      (( i++ ))
+  done < $PWD/$fhnd
 done
+printf '=%.0s' {1..30}; echo
 </code></pre>
-<hr>
-</div>
-</div>
+</div></div>
 
-<div class="column col-md-6 panel"><!-- fsecond column -->
-<div class="panel-heading">Console</div>
-<div class="panel-body">
-<pre class="code-panel">
-<code class="language-output">~/bash-repl$ bash selection.sh
-1) one
-2) two
-3) three
-4) break
-#? 1
-one
-#? 2
-other
-#? 3
-other
-#? 4
-done
-~/bash-repl$ 
-</code></pre>
-<hr>
-</div>
-</div>
-</div>
-
-<h4>Notes:</h4>
-
-<ol>
-  <li>In Bash we can have global scope;</li>
-  <li>In global scope we can have commands and declartions;</li>
-  <li>One statement can be on multiple lines of code;</li>
-  <li>Bash do not have switch but select instead;</li>  
-  <li>Selection statement is a loop used to create REPL applications;</li>  
-</ol>
-
-<h2>Criticism</h2>
+<h2>Critical Thinking</h2>
 
 <p>Bash syntax try to be punk and original but it breaks the Engineering design principles: To be consistent, to be easy to learn, to be "foolprove". Also Bash fail the KISS principle. In our opinion Bash should be forgoten and someone should use another language to create a better operating system based on a new language.</p>
 

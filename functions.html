@@ -34,18 +34,193 @@
     </div>
 </div><hr>
 
-
 <h1>Bash Functions</h1>
 
-
 <div class="alert alert-secondary shadow-sm">
-Work in progress.
+Bash functions are names given to specific group of commands. This group can be enclosed in squigly braces { ... } or round branchets ( ... ). Functions can have input parameters, output and result status. Let's study the details in this article.</div>
+
+<h2>Declare Function</h2>
+
+<p>You can declare functions in scripts using keyword "function" or just a function identifier follow by empty round brackets like this: <code>name () { ... }</code>. Unlike other languages, you can't define parameters in brackets, these are allways empty.</p>
+
+<!--code pannel-->
+<div class="panel">
+<div class="panel-heading">functions.sh</div>
+<div class="panel-body">
+<pre class="code-panel"><code class="language-bash line-numbers"># define two functions
+sum () (
+  echo $(( $1 + $2 ))
+)
+
+function exp {
+  echo $(( $1 ** $2 )); return 0
+}
+</code></pre>
+</div></div>
+
+<p><b>Node: </b>In this example, I have define 2 functions with 2 different methods. Each function can receive 2 parameters. There is no "return" keyword in first function. These functions have otuput the result using statement "echo" and this is how you create the actual function result in Bash. Using "return" statement you can signal "0" if the function terminate normaly or "1" or any number > 1 that signal an error.</p>
+
+<h2>Function Call</h2>
+
+<p>In Python you use round brackets to call a function by like this: name() and this is logic, but in Bash it is all different. You do not use round brackets for enclosing the arguments. Instead, you must enumerate the arguments separated by space. Let's study the example below:</p>
+
+<!--two columns pattern-->
+<div class="row">
+
+<div class="column col-md-6 panel"><!-- first column -->
+<div class="panel-heading">external.sh</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-bash line-numbers">#!/bin/bash
+#iport external functions
+source ./functions.sh
+
+# call sum and exp 4 times
+# we capture the output, then
+# display the result using echo
+
+for x in {1..4}
+do
+  s=$(sum $x 2);
+  echo "sum($x,2) = $s"
+  e=$(exp $x 2); 
+  echo "exp($x,2) = $e"
+  echo
+done
+</code></pre>
+</div>
 </div>
 
+<div class="column col-md-6 panel"><!-- fsecond column -->
+<div class="panel-heading">Console</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-output">~/bash-repl$ bash external.sh
+sum(1,2) = 3
+exp(1,2) = 1
 
-<pre><code class="language-bash line-numbers"># demo script
-echo "hello world"
-</code></code></code></pre>
+sum(2,2) = 4
+exp(2,2) = 4
+
+sum(3,2) = 5
+exp(3,2) = 9
+
+sum(4,2) = 6
+exp(4,2) = 16
+
+~/bash-repl$ 
+</code></pre>
+</div>
+</div>
+</div>
+
+<p><b>Note: </b> In previous exampke we import this script: "functions.sh". The functions defined in this script become available in "external.sh" and we can call them as if they would be localy defined. The session global space is loading the functions and make them accesible. No qualifier is necesary to call these functions. They become part of the common execution space.</p>
+
+<h2>Exit Status</h2>
+
+<p>Bash is crashing when something goes wrong. We can define smarter functions that return a status so we can handle eventual errors. Doing this can improve your code quality and avoid catastrophic defects. Let's analyze the example:</p>
+
+<!--code pannel-->
+<div class="panel">
+<div class="panel-heading">return.sh</div>
+<div class="panel-body">
+<pre class="code-panel"><code class="language-bash line-numbers">#!/bin/bash
+# a function that return result
+function div {
+   if (( $2 == 0 )); then
+      return 1
+   fi
+   echo $(($1 / $2)); return 0
+}
+echo "enter 2 numbers"
+read -p "a=" a
+read -p "b=" b
+
+# call and capture result using $?
+d=$(div $a $b)
+# error checking
+if [ $? -gt 0 ]; then
+   echo "division by 0 not supported"
+   exit 1
+else
+   echo "$a / $b = $d"
+   exit 0
+fi
+</code></pre>
+</div></div>
+
+<p>This example is available for you to open and run on your own computer. I have run this example 2 times in the console. Here is the result as expected. However you will probaly notice, there are no fractions. Bash do not have suport for float nunbers.</p>
+
+<!--console pannel-->
+<div class="panel">
+<div class="panel-heading">console</div>
+<div class="panel-body">
+<pre class="code-panel"><code class="language-output">~/bash-repl$ bash return.sh
+enter 2 numbers
+a=16
+b=2
+16 / 2 = 8
+~/bash-repl$ bash return.sh
+enter 2 numbers
+a=6
+b=0
+division by 0 not supported
+</code></pre>
+</div></div>
+
+<p>Download the example from here: <a href="">GitHub</a><p>
+
+<h2>Recursive Functions</h2>
+
+<p>This may be unexpected but Bash does support recursive functions. This is a function that call itself with different arguments. The number of calls is limited by the memory size of the computer and if you are not careful you can create infitinte recursive calls. Let's analyze a classic exampe:</p>
+
+<!--two columns pattern-->
+<div class="row">
+
+<div class="column col-md-6 panel"><!-- first column -->
+<div class="panel-heading">factorial.sh</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-bash line-numbers">#!/bin/bash
+#recursive function
+function factorial {
+  local n=$1
+  local r=1
+  if (( $n > 1 )) 
+  then
+    r=$(( $n * \
+    $(factorial $(($n - 1)) ) ))
+  fi
+  echo $r; return 0
+}
+#use parameter 
+echo $(factorial $1)
+</code></pre>
+</div>
+</div>
+
+<div class="column col-md-6 panel"><!-- fsecond column -->
+<div class="panel-heading">console</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-output">~/bash-repl$ bash  hello.sh
+~/bash-repl$ bash factorial.sh 0
+1
+~/bash-repl$ bash factorial.sh 1
+1
+~/bash-repl$ bash factorial.sh 4
+24
+~/bash-repl$ bash factorial.sh 8
+40320
+~/bash-repl$ bash factorial.sh 10
+3628800
+~/bash-repl$ bash factorial.sh 20
+2432902008176640000
+~/bash-repl$ 
+</code></pre>
+</div>
+</div>
+</div>
 
 <!-- work in progress-->
 
