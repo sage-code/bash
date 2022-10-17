@@ -69,8 +69,10 @@ $
 <div class="panel-heading">examples</div>
 <div class="panel-body">
 <pre class="code-panel">
-<code class="language-bash line-numbers">#!/bin/bash
-echo "hello"
+<code class="language-bash line-numbers"># this works, oh my :/
+echo 
+c=$(x=1; ((x+=1)); echo $x)
+echo "c=$c" # expect 2
 </code></pre>
 </div>
 </div>
@@ -79,9 +81,7 @@ echo "hello"
 <div class="panel-heading">console</div>
 <div class="panel-body">
 <pre class="code-panel">
-<code class="language-output">~/bash-repl$ bash  hello.sh
-hello world
-$
+<code class="language-output">c=2
 </code></pre>
 </div>
 </div>

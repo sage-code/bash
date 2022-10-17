@@ -181,19 +181,21 @@ division by 0 not supported
 <div class="panel-heading">factorial.sh</div>
 <div class="panel-body">
 <pre class="code-panel">
-<code class="language-bash line-numbers">#!/bin/bash
-#recursive function
+<code class="language-bash line-numbers">#recursive function
 function factorial {
   local n=$1
   local r=1
   if (( $n > 1 )) 
   then
-    r=$(( $n * \
-    $(factorial $(($n - 1)) ) ))
+     r=$(( $n * $(factorial $(($n - 1)) ) ))
   fi
   echo $r; return 0
 }
-#use parameter 
+#use parameter
+if [ $# == 0 ]; then
+   echo "use: faxtorial.sh x "
+   exit 1
+fi
 echo $(factorial $1)
 </code></pre>
 </div>
@@ -221,6 +223,18 @@ echo $(factorial $1)
 </div>
 </div>
 </div>
+
+<h2>Accessing Parameters</h2>
+
+<p>You have already notice the notation $1 is reading value of first parameter and $2 the second. But what about $0 this is returning the name of current script. The same notation is used for calling a script. Script and functions can both have parameters and they are using the same notation.</p>
+
+<p>Total number of parameters can be read using this notation $#, and can be used to verify if the function has received several parameters. There is one more thing. Large number of parameters > 9 must be read by using this notation: ${nn} where nn is a group of 2 or more digits. It is also safe to use notation ${n}.</p>
+
+<h2>Nested Functions</h2> 
+
+<p>Bash has suport for local functions. These are function defined inside other functions. I have created a demo code that works. Let's read this code and learn some advanced Bash functionality.</p>
+
+
 
 <!-- work in progress-->
 
