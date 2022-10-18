@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Bash command groups and command expansion.">
+  <meta name="author" content="Elucian Moise">
+  <meta name="keywords" content="sage, bash, shell, command, expansion">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Website title -->
+  <title>Command Groups</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <!-- Icon -->
+  <link rel="icon" type="image/png"  href="../images/favicon.ico">
+  <!-- Prism Highlighter -->
+  <link rel="stylesheet" href="../prism.css">
+  <script src="../prism.js"></script>
+  <!-- custom css -->
+  <link rel="stylesheet" href="../sage.css">
+  </head>
+<body>
+
+<div class="container">
+
+<!-- header -->
+<div class="row">
+    <div class="col">
+        <a href="https://sagecode.net"><img src="../images/sage-logo.svg" alt="Sage-Code Laboratory" height="80"/></a>
+    </div>
+    <div class="col  bottom-right">
+        <a href="index.html#lang-index">index</a>&lt;--
+    </div>
+</div><hr>
+
+
+<h1>Command Groups</h1>
+
+
+<div class="alert alert-secondary shadow-sm">You can group a set of commands and execute them one by one into a sub-shell. When the last command is executed the sub-shell terminate. A commad group can produce output that can be captured in the main script.
+</div>
+
+<h2>Sub-shell group</h2>
+
+<p>A command group is enclosed in round brackets.  Several commands are separated by semicollon ";" like this: (command1; command2; ... command n). Usually the last command in the group is producing an output using "echo" or "exit" that can be captured or ignored by the main script.</p>
+
+<!--two columns pattern-->
+<div class="row">
+
+<div class="column col-md-6 panel"><!-- first column -->
+<div class="panel-heading">example</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-bash line-numbers"># subshell command group
+a=0
+(a=1; echo "a="$a)  # expected 1
+echo "a=$a"         # expected 0
+</code></pre>
+</div>
+</div>
+
+<div class="column col-md-6 panel"><!-- fsecond column -->
+<div class="panel-heading">output</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-output">a=1
+a=0
+</code></pre>
+</div>
+</div>
+</div>
+
+<p><b>Note: </b>The variable "a", is used inside of command group but the modification do not propagate outside of the sub-shell. You can inject values but you can't get values out. It's because the sub-shell is an independent process that creates a new execution context.</p>
+
+<h2>In process group</h2>
+
+<p>You can create a command group that run in the same context as the current Bash session. A new process is not created, so the commands operate in the same scope as the main script. In this case any alteration of variables inside the group will propagate out of the group.</p>
+
+<!--two columns pattern-->
+<div class="row">
+
+<div class="column col-md-6 panel"><!-- first column -->
+<div class="panel-heading">examples</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-bash line-numbers"># subshell command group
+echo
+a=0
+{ a=1; echo "a=$a"; }  # expected 1
+echo "a=$a"            # expected 1
+</code></pre>
+</div>
+</div>
+
+<div class="column col-md-6 panel"><!-- fsecond column -->
+<div class="panel-heading">console</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-output">a=1
+a=1
+</code></pre>
+</div>
+</div>
+</div>
+
+<p><b>Note: </b>Usig {} is a little bit different than (). There is a space that is mandatory between { and first command. Also, the list of command has to terminate with ";". Don't ask me why. After you learn these little details, it will work.<p>
+
+<h2>Capture the Output</h2>
+
+<p>The result of command group can be captured using symbol "=" or notation "$?". The command can be used for it's side effects. The output of a command group can be redirected.</p>
+
+<!--two columns pattern-->
+<div class="row">
+
+<div class="column col-md-6 panel"><!-- first column -->
+<div class="panel-heading">examples</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-bash line-numbers"># this works, oh my :/
+echo 
+c=$(x=1; ((x+=1)); echo $x)
+echo "c=$c" # expect 2
+</code></pre>
+</div>
+</div>
+
+<div class="column col-md-6 panel"><!-- second column -->
+<div class="panel-heading">console</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-output">c=2
+</code></pre>
+</div>
+</div>
+</div>
+
+<h2>Chain of commands</h2>
+
+<p>We know every command return a status. This can be evaluated into a Boolean and is possible to be asses into a conditional. So we can use Boorlan operators: and, or, not to connect several commands into a single chain.</p>
+
+<!--two columns pattern-->
+<div class="row">
+
+<div class="column col-md-6 panel"><!-- first column -->
+<div class="panel-heading">chain.sh</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-bash line-numbers"># Search file by name
+read -p "Search file:" file
+
+# with continuation symbol "\"
+[[ -f "$file" ]] && \
+  echo "Found" ||   \
+  echo "Not found"
+
+# with conditional
+if [[ -e "$file" ]]
+then
+   echo "file exist"
+else
+   echo "file do not exist"
+fi
+</code></pre>
+</div>
+</div>
+
+<div class="column col-md-6 panel"><!-- fsecond column -->
+<div class="panel-heading">console</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-output">~/bash-repl$ bash chain.sh
+Search file:chain.sh
+Found
+file exist
+~/bash-repl$ bash chain.sh
+Search file:invalid.txt
+Not found
+file do not exist
+~/bash-repl$ 
+</code></pre>
+</div>
+</div>
+</div>
+
+<p><b>Notes: </b>In example above we have a short script "chain.sh" that read the input for a file name as a string. If the file is found we have message "found" otherwise the message "not found". We have run this example two times in console and you can read the output. First time file is found, second time not found.</p>
+
+<h2>Output Redirectation</h2>
+
+<p>Every command can use input, output and error streams. Each stream has a number associated with it, called "file descriptor". Operating system where Bash is running should provide 3 stream descriptors:</p>
+
+<h4>Streams</h4>
+<ul>
+<li>0 =  /dev/stdin  (standard input)
+<li>1 =  /dev/stdout (standard output)
+<li>2 =  /dev/stderr (standard error)
+</ul>
+
+<h3>Output redirection</h3>
+
+<p>Sometimes is useful to capture output into a real file or to get input from a real file. This is done using redirection. The basic redirection symbol is this: ">" or "<" and it can be combined with "&" or "|" and eventually a number. You can learn some patterns.</p>
+
+<h4>Examples:</h4>
+
+
+<!-- simple table-->
+<table class="table table-bordered table-striped" style="width: 100%;">
+<tr>    
+<th>Command</th>
+<th>Description</th>
+</tr></thead>
+
+<tbody>
+<tr>
+<td>command > file</td>
+<td>Redirect output to a file. File is overwritten if already exists.</td>
+</tr>
+<tr>
+<td>command >> file</td>
+<td>Append output to a file. File is created if does not already exists.</td>
+</tr>
+<tr>
+<td>command < file</td>
+<td>Accept input for read from file_name. File must exist.</td>
+</tr>
+
+</tbody>
+</table>
+
+<h3>Input redirection</h3>
+
+<p>Some built-in commands accept data using standard input. To accept input redirection we use symbol "<". For example, in script, we can use a loop to read the input stream. Usualli the input redirectation comes from a file.</p>
+
+<!--two columns pattern-->
+<div class="row">
+
+<div class="column col-md-6 panel"><!-- first column -->
+<div class="panel-heading">example</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-bash line-numbers">#!/bin/bash
+#read standard input
+while read line
+do
+ echo $line
+done < /dev/stdin
+</code></pre>
+</div>
+</div>
+
+<div class="column col-md-6 panel"><!-- fsecond column -->
+<div class="panel-heading">console</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-output">&gt;bash input.sh < test.txt
+This is a test
+Second line
+Third line
+End of file
+</code></pre>
+</div>
+</div>
+</div>
+
+<h2>Command Pipleines</h2>
+
+<p>
+You can connect one command output to next command input. The pipeline operator is a vertical bar "|" or ampersand "&". In the example below we have used "| more" to stop a long scroll. You can press space for next page or enter for next row. </p>
+
+
+<!--console pannel-->
+<div class="panel">
+<div class="panel-heading">console</div>
+<div class="panel-body">
+<pre class="code-panel"><code class="language-output">
+~/bash-repl$ ls -l *.sh | more
+-rw-r--r-- 1 runner runner  196 Sep 24 15:34 args.sh
+-rw-r--r-- 1 runner runner  226 Sep 19 22:59 array.sh
+-rw-r--r-- 1 runner runner  358 Sep 18 18:41 case.sh
+-rw-r--r-- 1 runner runner   84 Sep 24 09:16 c-for.sh
+-rw-r--r-- 1 runner runner  246 Sep 29 00:40 chain.sh
+-rw-r--r-- 1 runner runner  210 Sep 25 22:54 colon.sh
+-rw-r--r-- 1 runner runner  162 Oct  3 02:33 com-group.sh
+-rw-r--r-- 1 runner runner  233 Oct  3 02:15 command.sh
+--More--
+</code></pre>
+</div></div>
+
+<h2>Command Substiturion</h2>
+
+<p>A command can be replaced by its output. Command substitution can be used with a command group. We can use command substiturion for assignement expressions but also with string expressions. Command substitution has 2 forms:</p>
+
+<ul>
+<li>$(command list)</li>
+<li>`command list`</li>
+</ul>
+
+<!--two columns pattern-->
+<div class="row">
+
+<div class="column col-md-6 panel"><!-- first column -->
+<div class="panel-heading">example</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-bash line-numbers"># substitution in string
+echo "Current folder: $(pwd)"
+
+# substitution in expression
+dir=$(ls *.sh)
+
+# check content of result
+for file in $dir
+do
+    echo $file;
+done
+# preferred shorthand in a loop
+for file in *,sh
+do
+    echo $file;
+done
+</code></pre>
+</div>
+</div>
+
+<div class="column col-md-6 panel"><!-- fsecond column -->
+<div class="panel-heading">console</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-output">~/bash-repl$ bash substitution.sh 
+Current folder: /home/runner/bash-repl
+args.sh
+array.sh
+case.sh
+c-for.sh
+chain.sh
+colon.sh
+com-group.sh
+command.sh
+conditionals.sh
+decision.sh
+demo.sh
+</code></pre>
+</div>
+</div>
+</div>
+
+<hr>
+<p><b>Read next:</b>
+<a href="template.html">Page Name</a></p>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-copyright text-center"></div>
+</footer>
+</div>
+</body>
+</html>

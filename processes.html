@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="Introductory Bash scripting.">
+  <meta name="description" content="Bash parallel processes, subprocesses and asynchronous command execution.">
   <meta name="author" content="Elucian Moise">
-  <meta name="keywords" content="bash, script, linux, tutorial">
+  <meta name="keywords" content="sage, bash, subproc, parallel, multithread, background, execution">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Website title -->
-  <title>Asynchronous Processes</title>  
+  <title>Async Processes</title>  
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
@@ -34,20 +34,129 @@
     </div>
 </div><hr>
 
-
 <h1>Asynchronous Processes</h1>
 
-
 <div class="alert alert-secondary shadow-sm">
-Work in progress.
+In Bash you can call multiple commands or command groups asynchronously. That is when main thread start a sub-process but continoue on and can start another sub-process without wayting for the first to finish. Asynchronous processes can run in parallel on different core processors.</div>
+
+<p>Bash is good for starting commands in parallel. There are two methods available: running commands in background and coprocesses. With coprocesses you have more control but you need to create a script for managing the workflow.</p>
+
+<h2>Forking</h2>
+
+<p>This is a terminology used sometimes for describing the workflow. A large job is divided in smaller parts and distribute the work in multiple threads to be executed in parallel. Most frequently the threads are doing exactly the same thing for equal load. Sometimes the threads may have different load and duration.</p>
+
+<div class="text-center">
+  <img src="./img/forking.svg" alt="process forking diagram"
+       width="600" class="img-fluid protect rounded shadow border" >
+  <p>Asynchronous Processing</p>
 </div>
 
+<p>In this case the processes are relative independent. All threads start almost at the same time, and finish at different times. The main thread must wait for all processes to finish before doing something with the results. During the execution, the sub-processes do not communicate with the main thread.</p>
 
-<pre><code class="language-bash line-numbers"># demo script
-echo "hello world"
-</code></code></code></pre>
+<!--two columns pattern-->
+<div class="row">
 
-<!-- work in progress-->
+<div class="column col-md-6 panel"><!-- first column -->
+<div class="panel-heading">forking.sh</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-bash line-numbers">#!/bin/bash
+#start 4 asynchronous threads
+echo "starting ..."
+echo "1" && sleep 20 && echo "1" &
+echo "2" && sleep 5  && echo "2" &
+echo "3" && sleep 10 && echo "3" &
+echo "4" && sleep 3  && echo "4" &
+
+sleep 1
+echo "ending ..."
+
+wait
+echo "done."
+</code></pre>
+</div>
+</div>
+
+<div class="column col-md-6 panel"><!-- second column -->
+<div class="panel-heading">console</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-output">~/bash-repl$ bash forking.sh
+starting ...
+1 
+2 
+3 
+4 
+ending ...
+4
+2
+3
+1
+done.
+</code></pre>
+</div>
+</div>
+</div>
+
+<h4>Notes:</h4>
+
+<ul>
+<li>Ending a chain of commands with "&" cause all gorup to run asynchronously in the background;</li>
+<li>Sub-processes start almost immediately and the commands in the chain will be executed one by one;</li>
+<li>After starting all necessary co-processes you must use "wait" to avoid exiting the script too early;</li>
+<li>After waiting for all processes to finish you can print the results and prepare for exit;</li>
+</ul>
+
+<h2>Coprocess</h2>
+
+<p>You can use command: <code>coproc</code> to start a secondary process that can communicate with the main process. This is similar with forking with a single branch. The point is, the coprocess is running in parallel witht he main process.</p>
+
+<div class="text-center">
+  <img src="./img/processes.svg" alt="coprocess diagram"
+       width="600" class="img-fluid protect rounded shadow border" >
+  <p>Main process & Coprocess</p>
+</div>
+
+<!--two columns pattern-->
+<div class="row">
+<!-- first column -->
+<div class="column col-md-6 panel">
+<div class="panel-heading">example</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-bash line-numbers">#!/bin/bash
+coproc (echo $(whoami))
+echo "COPROC = ${COPROC[@]}"
+echo "COPROC_PID = ${COPROC_PID}"
+
+# read the output from pipeline
+read -r user <&"${COPROC[0]}"
+echo "Current user: $user"
+</code></pre>
+</div>
+</div>
+<!-- second column -->
+<div class="column col-md-6 panel">
+<div class="panel-heading">console</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-output">~/bash-repl$ bash coprocess.sh 
+COPROC = 63 60
+COPROC_PID = 205
+Current user: runner
+~/bash-repl$ 
+</code></pre>
+</div>
+</div>
+</div>
+
+<h4>Notes:</h4>
+
+<ul>
+<li>co-processes are asynchronous, similar to commands that use "&" at the end;</li>
+<li>co-processes have an advantage over normal jobs by providing a data pipeline;</li>
+<li>co-processes can be used in producer-consumer design pattern.</li>
+</ul>
 
 <hr>
 <p><b>Read next:</b>
