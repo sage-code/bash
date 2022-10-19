@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="Introductory Bash scripting.">
+  <meta name="description" content="Introductory to Bash bulitin regular expressions.">
   <meta name="author" content="Elucian Moise">
-  <meta name="keywords" content="bash, script, linux, tutorial">
+  <meta name="keywords" content="sage, regex, bash, script, linux, regular expressions">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Website title -->
@@ -39,15 +39,124 @@
 
 
 <div class="alert alert-secondary shadow-sm">
-Work in progress.
+A regular expression is some sequence of characters that represents a pattern. Actually the regular expressions is a secret language used for comparing a string with a pattern. It can be used for search or validations.
+</div>
+
+<p>Bash has builtin regular expressions. You can compare a string with a reqular expression by using specific operator "=~". The challange is to build the regular expression pattern. In next example we check if a particular input character is digit or other symbol.</p>
+
+
+
+<!--two columns pattern-->
+<div class="row">
+<!-- first column -->
+<div class="column col-md-6 panel">
+<div class="panel-heading">digit.sh</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-bash line-numbers">#!/bin/bash
+read -p "enter a symbol:" symbol
+
+if [[ $symbol =~ [0-9] ]] 
+then
+    echo "$symbol is a digit"
+elif [[ $symbol =~ [A-Za-z] ]] 
+then
+    echo "$symbol is a letter"
+else
+    echo "$symbol is special \
+    character"
+fi
+</code></pre>
+</div>
+</div>
+
+<!-- second column -->
+<div class="column col-md-6 panel">
+<div class="panel-heading">console</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-output">~/bash-repl$ bash symbol.sh
+enter a symbol:6
+6 is a digit
+~/bash-repl$ bash symbol.sh
+enter a symbol:A
+A is a letter
+~/bash-repl$ bash symbol.sh
+enter a symbol:@
+@ is special character
+~/bash-repl$ bash symbol.sh
+enter a symbol:*
+* is special character
+~/bash-repl$ 
+</code></pre>
+</div>
+</div>
 </div>
 
 
-<pre><code class="language-bash line-numbers"># demo script
-echo "hello world"
-</code></code></code></pre>
+<h4>Some tricks</h4>
 
-<!-- work in progress-->
+<ul>
+    <li>First position in string: ^</li>
+    <li>Last position in string: $</li>    
+    <li>Repeating the pattern: + </li>
+    <li>Range of symbols: - </li>
+</ul>
+
+
+<!--two columns pattern-->
+<div class="row">
+<!-- first column -->
+<div class="column col-md-6 panel">
+<div class="panel-heading">example</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-bash line-numbers">#!/bin/bash
+echo -n "Enter: > "
+read num
+if [[ $num =~ ^[0-9]+$ ]]
+then
+    echo Decimal
+elif [[ $num =~ ^[A-Fa-f0-9]+$ ]]
+then
+    echo Hexadecimal
+else
+    echo Non-numeric
+fi
+</code></pre>
+</div>
+</div>
+<!-- second column -->
+<div class="column col-md-6 panel">
+<div class="panel-heading">console</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-output">~/bash-repl$ bash validx.sh
+Enter: > 145
+Decimal
+~/bash-repl$ bash validx.sh
+Enter: > AB13
+Hexadecimal
+~/bash-repl$ bash validx.sh
+Enter: > abcff355           
+Hexadecimal
+~/bash-repl$ bash validx.sh
+Enter: > #123.5
+Non-numeric
+~/bash-repl$ 
+</code></pre>
+</div>
+</div>
+</div>
+
+
+<h2>Advanced Regex Usage</h2>
+
+<p>You can learn and build regular expressions on a free website that I have found and used myself to learn some tricks. Regular expressions are very powerful but need a lot of practice to make or understand complex patterns.</p>
+
+<p>External tool: <a href="https://regexr.com/" ref="nofollow nooppener" target="_blank">https://regexr.com/</a></p>
+
+<p>Note: You can use regular expressions to search in output a command by using other commands that accept as a parameter regular expressions.  Check these two special commands: sed and grep. We will prepare examples fot these commands.</p>
 
 <hr>
 <p><b>Read next:</b>
