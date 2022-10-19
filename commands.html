@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="Introductory Bash scripting.">
+  <meta name="description" content="Introductory Bash internal commands. A comprehensive tutorial for beginners.">
   <meta name="author" content="Elucian Moise">
-  <meta name="keywords" content="bash, script, linux, tutorial">
+  <meta name="keywords" content="bash, script, internal, builtin, linux, commands">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Website title -->
@@ -39,19 +39,95 @@
 
 
 <div class="alert alert-secondary shadow-sm">
-Work in progress.
-</div>
+Bash has an impresive list of builtin commands that can be used in scripts, some can be used in the console. You can find a list of commands using this first command: <em>man</em></div>
 
+</em>To find out if a command is internal or external you can use the commmand: <em>type</em>. If you need help for a command parameters you can type command name with parameter "-h". We list in this articles a short description for each command and a reference to external documentation to find more info.</p>
 
-<pre><code class="language-bash line-numbers"># demo script
-echo "hello world"
-</code></code></code></pre>
+<h4>Getting Help</h4>
 
-<!-- work in progress-->
+<p>Start the console and try some commands. If this works, you have Bash installed and you can find help for any command. If you can't run this on your PC, you can try on <a href="replit.com" rel="nofollow">replit.com</a> website.</p>
+
+<!--console pannel-->
+<div class="panel">
+<div class="panel-heading">console</div>
+<div class="panel-body">
+<pre class="code-panel"><code class="language-output">~&gt;bash
+bash-3.2$ type man
+man is /usr/bin/man
+bash-3.2$ man -h
+man, version 1.6g
+usage: man [-adfhktwW] [section] [-M path] [-P pager] [-S list]
+    [-m system] [-p string] name ...
+
+  a : find all matching entries
+  c : do not use cat file
+  d : print gobs of debugging information
+  D : as for -d, but also display the pages
+  f : same as whatis(1)
+  h : print this help message
+  k : same as apropos(1)
+  K : search for a string in all pages
+  t : use troff to format pages for printing
+  w : print location of man page(s) that would be displayed
+      (if no name given: print directories that would be searched)
+  W : as for -w, but display filenames only
+
+  C file   : use `file' as configuration file
+  M path   : set search path for manual pages to `path'
+  P pager  : use program `pager' to display pages
+  S list   : colon separated section list
+  m system : search for alternate system's man pages
+  p string : string tells which preprocessors to run
+               e - [n]eqn(1)   p - pic(1)    t - tbl(1)
+               g - grap(1)     r - refer(1)  v - vgrind(1)
+bash-3.2$ 
+</code></pre>
+</div></div>
+
+<h4>References</h4>
+
+<p>Is our of scope for this tutorial to teach you all the Bash commands. You can find the help for these commands in reference manuals. However we list all the commands we found so far in the documentation for Bash 7.3</p>
+
+<h2><a href="https://www.ibm.com/docs/da/aix/7.3?topic=shell-list-bourne-built-in-commands">
+AIX List of commands</a></h2>
+
+<table class="table table-bordered table-striped" style="width: 100%;">
+<tr>    
+<th>Command</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+</tr><td>:       </td><td>Returns a zero exit value</td></tr>
+</tr><td>.       </td><td>Reads and executes commands from a file parameter and then returns.</td></tr>
+</tr><td>break   </td><td>Exits from the enclosing for, while, or until command loops, if any.</td></tr>
+</tr><td>cd      </td><td>Changes the current directory to the specified directory.</td></tr>
+</tr><td>continue</td><td>Resumes the next iteration of the enclosing for, while, or until command loops.</td></tr>
+</tr><td>echo    </td><td>Writes character strings to standard output.</td></tr>
+</tr><td>eval    </td><td>Reads the arguments as input to the shell and executes the resulting command or commands.</td></tr>
+</tr><td>exec    </td><td>Executes the command specified by the Argument parameter, instead of this shell, without creating a new process.</td></tr>
+</tr><td>exit    </td><td>Exits the shell whose exit status is specified by the n parameter.</td></tr>
+</tr><td>export  </td><td>Marks names for automatic export to the environment of subsequently executed commands.</td></tr>
+</tr><td>hash    </td><td>Finds and remembers the location in the search path of specified commands.</td></tr>
+</tr><td>pwd     </td><td>Displays the current directory.</td></tr>
+</tr><td>read    </td><td>Reads one line from standard input.</td></tr>
+</tr><td>readonly</td><td>Marks name specified by Name parameter as read-only.</td></tr>
+</tr><td>return  </td><td>Causes a function to exit with a specified return value.</td></tr>
+</tr><td>set     </td><td>Controls the display of various parameters to standard output.</td></tr>
+</tr><td>shift   </td><td>Shifts command-line arguments to the left.</td></tr>
+</tr><td>test    </td><td>Evaluates conditional expressions.</td></tr>
+</tr><td>times   </td><td>Displays the accumulated user and system times for processes run from the shell.</td></tr>
+</tr><td>trap    </td><td>Runs a specified command when the shell receives a specified signal or signals.</td></tr>
+</tr><td>type    </td><td>Interprets how the shell would interpret a specified name as a command name.</td></tr>
+</tr><td>ulimit  </td><td>Displays or adjusts allocated shell resources.</td></tr>
+</tr><td>umask   </td><td>Determines file permissions.</td></tr>
+</tr><td>unset   </td><td>Removes the variable or function corresponding to a specified name.</td></tr>
+</tr><td>wait    </td><td>Waits for the specified child process to end and reports its termination status.</td></tr>
+</tbody>
+</table>
 
 <hr>
 <p><b>Read next:</b>
-<a href="external.html">External Commands</a></p>
+<a href="groups.html">Command Groups</a></p>
 
 <!-- Footer -->
 <footer class="footer">
