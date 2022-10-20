@@ -38,20 +38,144 @@
 <h1>File Handling</h1>
 
 
-<div class="alert alert-secondary shadow-sm">
-Work in progress.
+<div class="alert alert-secondary shadow-sm">Bash is a language designed to handle files. That is the strongest feature of the language. You can use file name to find a file, open a file and read file content. Also Bash can manipulate groups of files using a file pattern that you need to learn how to create. 
 </div>
 
+<p>We start with an example that can be used as a design patter to read content from a file line by line. This can be useful for example to load data in memory, validate the date then push some data to the outout using echo statement.</p>
 
-<pre><code class="language-bash line-numbers"># demo script
-echo "hello world"
-</code></code></code></pre>
-
+<!--two columns pattern-->
+<div class="row">
+<!-- first column -->
+<div class="column col-md-6 panel">
+<div class="panel-heading">example</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-bash line-numbers">#!/bin/bash
+while read -r line
+do
+  echo "$line"
+done < test.txt
+</code></pre>
+</div>
+</div>
+<!-- second column -->
+<div class="column col-md-6 panel">
+<div class="panel-heading">console</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-output">~/bash-repl$ bash read-file.sh
+This is a test
+Second line
+Third line
+End of file
+~/bash-repl$ 
+</code></pre>
+</div>
+</div>
+</div>
 <!-- work in progress-->
+<p><b>Note: </b>Of course someone can say this is a dump example because you can do the same thing in a single line using the "cat" builtin command. That is obviosly true but think obout the possibility here to read every line as a string then you can parse the string and dynamicly derive data from it, make validations or computations that you need to solve specific problems.</p>
+
+<h2>Filename Expansion</h2>
+
+<p>You can use file paterns with "ls" command but also with "for" loop to search files that match a specific pattern. This is like a regular expression but has different rules. I have learned several of these rules but you can dig into documentation for details.</p>
+
+<ul>
+    <li>The star * is used to specify any number of characters</li>
+    <li>The questionmark ? is used to specify any single character</li>
+    <li>The symbol [] is used as a patern to specify several characters</li>
+    <li>The sumbol "[!" or [^ can be used to negate the next characters</li>
+</ul>
+
+<!--two columns pattern-->
+<div class="row">
+<!-- first column -->
+<div class="column col-md-6 panel">
+<div class="panel-heading">example</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-bash line-numbers">#using pattern to list some files
+pat=*[r]*e.*
+echo "containing r ending with e"
+echo "-------------------------"
+ls -1 $pat
+
+#using a loop
+echo "-------------------------"
+for file in $pat
+do
+   echo $file
+done
+</code></pre>
+</div>
+</div>
+<!-- second column -->
+<div class="column col-md-6 panel">
+<div class="panel-heading">console</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-output">~/bash-repl$ bash paterns.sh
+containing r ending with e
+-------------------------
+closure.sh
+range.sh
+read-file.sh
+the-range.sh
+-------------------------
+closure.sh
+range.sh
+read-file.sh
+the-range.sh
+~/bash-repl$ 
+</code></pre>
+</div>
+</div>
+</div>
+
+<h2>Complex Patterns</h2>
+
+<p>We test a set of examples using just the command line in the same folder where this tutorial is located. So these are real files that we have created for this tutorial using html.</p>
+
+<h4>Exclude letters</h4>
+
+<p>To exclude letter you can use ! or ^ in front of a letter.</p>
+
+<div class="panel">
+<div class="panel-heading">example</div>
+<div class="panel-body">
+<pre class="code-panel"><code class="language-output">&gt;bash
+bash-3.2$ ls [!bcdfghjklmnprstvxzw]*.html
+arrays.html external.html   index.html
+bash-3.2$ ls [^bcdfghjklmnprstvxzw]*.html
+arrays.html external.html   index.html
+bash-3.2$ 
+</code></pre>
+</div></div>
+
+<p><b>Notes: </b>In previous example we list all files that do not start with a consonant. Of course that means all files that start with anything else including special symbols or numbers or vowels. Do not forget, Linux is case sensitive.</p>
+
+<h4>Using touch</h4>
+
+<p>You can use touch command to create a new empty file.</p>
+
+<div class="panel">
+<div class="panel-heading">example</div>
+<div class="panel-body">
+<pre class="code-panel"><code class="language-output">&gt;bash
+bash-3.2$ touch .test
+bash-3.2$ touch .etos
+bash-3.2$ ls .[t]*
+.test
+bash-3.2$ ls .[et]*
+.etos   .test
+bash-3.2$ 
+</code></pre>
+</div></div>
+
+<p><b>Notes: </b>In previous example we create two files named {.test, .etos} then we list all files that start with "." having next character "e" or "t". Notce that "ls" command normally is hiding all the files starting with dot. These are usually system files.</p>
 
 <hr>
-<p><b>Read next:</b>
-<a href="template.html">Page Name</a></p>
+<p><b>Read next: </b><a href="directory.html">Directory</a></p>
 
 <!-- Footer -->
 <footer class="footer">
