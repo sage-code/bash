@@ -174,6 +174,67 @@ bash-3.2$
 
 <p><b>Notes: </b>In previous example we create two files named {.test, .etos} then we list all files that start with "." having next character "e" or "t". Notce that "ls" command normally is hiding all the files starting with dot. These are usually system files.</p>
 
+<h2>Processing Files</h2>
+
+<p>Puting all these things together we can already create a script that is doing something more intresting. Let's list first 3 lines in all script files that start with letter "f". Study this demo and test your reading skills.</p>
+
+<!--two columns pattern-->
+<div class="row">
+<!-- first column -->
+<div class="column col-md-6 panel">
+<div class="panel-heading">files.sh</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-bash line-numbers">#!/bin/bash
+#list script files
+for fhnd in f*.sh
+do
+  printf '_%.0s' {1..30}
+  echo; echo "#file: $fhnd"
+  i=0
+  # display first 3 lines 
+  while read -r line; do
+      echo $line
+      if (( i == 3 )); then
+         break; 
+      fi
+      (( i++ ))
+  done < $PWD/$fhnd
+  echo "..."
+done
+printf '=%.0s' {1..30} 
+echo
+</code></pre>
+</div>
+</div>
+<!-- second column -->
+<div class="column col-md-6 panel">
+<div class="panel-heading">console</div>
+<div class="panel-body">
+<pre class="code-panel">
+<code class="language-output">~/bash-repl$ bash files.sh
+______________________________
+#file: forxp.sh
+# sequence and range
+echo $(seq 0 10)
+echo $(seq 1 2 20)
+echo {1..20..2}
+...
+______________________________
+#file: functions.sh
+# define two functions
+sum () (
+echo $(( $1 + $2 ))
+)
+...
+==============================
+~/bash-repl$ 
+</code></pre>
+</div>
+</div>
+</div>
+
+
 <hr>
 <p><b>Read next: </b><a href="directory.html">Directory</a></p>
 
